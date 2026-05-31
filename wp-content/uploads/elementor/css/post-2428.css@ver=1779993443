@@ -1,0 +1,57 @@
+.elementor-2428 .elementor-element.elementor-element-41afc2f > .elementor-container > .elementor-column > .elementor-widget-wrap{align-content:center;align-items:center;}.elementor-2428 .elementor-element.elementor-element-41afc2f > .elementor-container{max-width:500px;min-height:200px;}.elementor-2428 .elementor-element.elementor-element-41afc2f{transition:background 0.3s, border 0.3s, border-radius 0.3s, box-shadow 0.3s;margin-top:-210px;margin-bottom:0px;padding:0px 0px 0px 0px;}.elementor-2428 .elementor-element.elementor-element-41afc2f > .elementor-background-overlay{transition:background 0.3s, border-radius 0.3s, opacity 0.3s;}.elementor-2428 .elementor-element.elementor-element-f73c0ea > .elementor-element-populated{padding:0px 0px 0px 0px;}.elementor-2428 .elementor-element.elementor-element-b8e473c{text-align:center;}.elementor-2428 .elementor-element.elementor-element-deba8f8 > .elementor-element-populated{margin:0px 0px 0px 0px;--e-column-margin-right:0px;--e-column-margin-left:0px;padding:40px 40px 40px 40px;}.elementor-2428 .elementor-element.elementor-element-5b5b23d > .elementor-widget-container{margin:0px 0px 0px 0px;padding:0% 0% 0% 0%;}.elementor-2428 .elementor-element.elementor-element-5b5b23d{text-align:left;}@media(min-width:768px){.elementor-2428 .elementor-element.elementor-element-f73c0ea{width:100%;}.elementor-2428 .elementor-element.elementor-element-deba8f8{width:100%;}}@media(max-width:767px){.elementor-2428 .elementor-element.elementor-element-41afc2f > .elementor-container{min-height:200px;}.elementor-2428 .elementor-element.elementor-element-f73c0ea > .elementor-element-populated{text-align:center;}.elementor-2428 .elementor-element.elementor-element-b8e473c > .elementor-widget-container{margin:40px 40px 40px 40px;}.elementor-2428 .elementor-element.elementor-element-b8e473c{text-align:center;}.elementor-2428 .elementor-element.elementor-element-deba8f8 > .elementor-element-populated{margin:10px 10px 10px 10px;--e-column-margin-right:10px;--e-column-margin-left:10px;padding:20px 20px 20px 20px;}}/* Start custom CSS for section, class: .elementor-element-9dfa3a4 *//* Zwężenie wszystkich elementów tekstowych: paragrafy, nagłówki i listy */
+.single-post .elementor-widget-theme-post-content p,
+.single-post .elementor-widget-theme-post-content h1,
+.single-post .elementor-widget-theme-post-content h2,
+.single-post .elementor-widget-theme-post-content h3,
+.single-post .elementor-widget-theme-post-content h4,
+.single-post .elementor-widget-theme-post-content h5,
+.single-post .elementor-widget-theme-post-content h6,
+.single-post .elementor-widget-theme-post-content ul,
+.single-post .elementor-widget-theme-post-content ol {
+    max-width: 750px;
+    margin-left: auto !important;
+    margin-right: auto !important;
+}
+
+/* Specyficzne ustawienia dla nagłówka H1 - duży odstęp góra/dół */
+.single-post .elementor-widget-theme-post-content h1 {
+    margin-top: 100px !important;
+    margin-bottom: 60px !important;
+    line-height: 1.2;
+}
+
+/* Odstępy dla list, aby nie były przyklejone do tekstu */
+.single-post .elementor-widget-theme-post-content ul,
+.single-post .elementor-widget-theme-post-content ol {
+    padding-left: 20px; /* Wcięcie dla kropek/numerów */
+    margin-bottom: 2.5rem;
+}
+
+/* Odstępy dla paragrafów */
+.single-post .elementor-widget-theme-post-content p {
+    line-height: 1.8;
+    margin-bottom: 2.5rem;
+}
+
+/* Zdjęcia pozostają w pełnej szerokości kontenera */
+.single-post .elementor-widget-theme-post-content img {
+    display: block;
+    width: 100%;
+    height: auto;
+    margin-top: 80px;
+    margin-bottom: 80px;
+}
+
+/* Optymalizacja dla urządzeń mobilnych */
+@media (max-width: 767px) {
+    .single-post .elementor-widget-theme-post-content p,
+    .single-post .elementor-widget-theme-post-content h1,
+    .single-post .elementor-widget-theme-post-content h2,
+    .single-post .elementor-widget-theme-post-content ul {
+        max-width: 90%;
+    }
+    .single-post .elementor-widget-theme-post-content h1 {
+        margin-top: 60px !important;
+        margin-bottom: 40px !important;
+    }
+}/* End custom CSS */

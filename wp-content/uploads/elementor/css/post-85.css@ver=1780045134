@@ -1,0 +1,29 @@
+.elementor-85 .elementor-element.elementor-element-6216961 > .elementor-container{max-width:1600px;}.elementor-85 .elementor-element.elementor-element-78624f1 .elementor-post__thumbnail__link{padding-bottom:calc( 0.66 * 100% );}.elementor-85 .elementor-element.elementor-element-78624f1:after{content:"0.66";position:absolute;color:transparent;}.elementor-85 .elementor-element.elementor-element-78624f1{--grid-row-gap:5px;--grid-column-gap:5px;}.elementor-85 .elementor-element.elementor-element-78624f1 .elementor-portfolio-item__img, .elementor-85 .elementor-element.elementor-element-78624f1 .elementor-portfolio-item__overlay{border-radius:0px 0px 0px 0px;}.elementor-85 .elementor-element.elementor-element-78624f1 a .elementor-portfolio-item__overlay{background-color:#0201017D;}.elementor-85 .elementor-element.elementor-element-78624f1 a .elementor-portfolio-item__title{color:#FFFFFF;}.elementor-85 .elementor-element.elementor-element-78624f1 .elementor-portfolio-item__title{font-size:24px;text-transform:uppercase;line-height:40px;}.elementor-85 .elementor-element.elementor-element-38e9dea{--spacer-size:20px;}@media(min-width:768px){.elementor-85 .elementor-element.elementor-element-1c11d42{width:100%;}}@media(max-width:959px){.elementor-85 .elementor-element.elementor-element-78624f1 .elementor-portfolio-item__title{font-size:16px;line-height:1em;letter-spacing:1px;word-spacing:0em;}}@media(max-width:767px){.elementor-85 .elementor-element.elementor-element-78624f1 .elementor-portfolio-item__title{font-size:17px;line-height:1em;letter-spacing:0px;word-spacing:0em;}}/* Start custom CSS for portfolio, class: .elementor-element-78624f1 *//* 1. Ustawienia dla MOBILE (zostawiamy bez zmian - napisy zawsze widoczne na ciemnym tle) */
+@media (max-width: 767px) {
+    .elementor-85 .elementor-element.elementor-element-78624f1 .elementor-portfolio-item__overlay {
+        opacity: 1 !important;
+        background-color: rgba(0,0,0,0.5) !important; /* Stałe przyciemnienie na telefonie */
+    }
+}
+
+/* 2. Ustawienia dla DESKTOPU (poprawione) */
+@media (min-width: 768px) {
+    
+    /* Wymuszamy, by warstwa z napisem była ZAWSZE widoczna, ale z przezroczystym tłem */
+    .elementor-85 .elementor-element.elementor-element-78624f1 .elementor-portfolio-item__overlay {
+        opacity: 1 !important; /* To kluczowa zmiana - odkrywa warstwę */
+        background-color: rgba(0,0,0,0) !important; /* Tło startowe całkowicie przezroczyste */
+        transition: background-color 0.4s ease;
+    }
+
+    /* Upewniamy się, że sam tytuł jest widoczny */
+    .elementor-85 .elementor-element.elementor-element-78624f1 .elementor-portfolio-item__title {
+        opacity: 1 !important;
+        transform: none !important; /* Kasuje ewentualne animacje wjazdu tekstu */
+    }
+
+    /* Dopiero po najechaniu (hover) zmieniamy tło na ciemne */
+    .elementor-85 .elementor-element.elementor-element-78624f1 .elementor-portfolio-item:hover .elementor-portfolio-item__overlay {
+        background-color: rgba(0,0,0,0.7) !important;
+    }
+}/* End custom CSS */
