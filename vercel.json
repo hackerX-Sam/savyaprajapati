@@ -37,7 +37,7 @@
       ]
     },
     {
-      "source": "/(about|contact|stories)\\.1",
+      "source": "/(about|contact|stories|team)\\.1",
       "headers": [
         {
           "key": "Content-Type",
