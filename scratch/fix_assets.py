@@ -1,5 +1,5 @@
 import os
-import glob
+import re
 
 base_dir = r'c:\Users\samir\OneDrive\Desktop\confidential\ninaanddarek.com'
 
@@ -13,19 +13,17 @@ for filepath in files_to_fix:
         with open(filepath, 'r', encoding='utf-8', errors='ignore') as f:
             content = f.read()
         
-        # Fix relative asset links by making them absolute to the root
-        replacements = [
-            ('href="wp-content/', 'href="/wp-content/'),
-            ('src="wp-content/', 'src="/wp-content/'),
-            ('href="wp-includes/', 'href="/wp-includes/'),
-            ('src="wp-includes/', 'src="/wp-includes/')
-        ]
+        # Use regex to match href='wp-content/' or href="wp-content/"
+        new_content = re.sub(r'href=([\'"])wp-content/', r'href=\1/wp-content/', content)
+        new_content = re.sub(r'src=([\'"])wp-content/', r'src=\1/wp-content/', new_content)
+        new_content = re.sub(r'href=([\'"])wp-includes/', r'href=\1/wp-includes/', new_content)
+        new_content = re.sub(r'src=([\'"])wp-includes/', r'src=\1/wp-includes/', new_content)
         
-        for old, new in replacements:
-            content = content.replace(old, new)
-            
-        with open(filepath, 'w', encoding='utf-8') as f:
-            f.write(content)
-        print(f"Fixed asset paths in {os.path.basename(os.path.dirname(filepath))}/index.html")
+        if new_content != content:
+            with open(filepath, 'w', encoding='utf-8') as f:
+                f.write(new_content)
+            print(f"Fixed asset paths in {os.path.basename(os.path.dirname(filepath))}/index.html")
+        else:
+            print(f"No changes needed for {os.path.basename(os.path.dirname(filepath))}/index.html")
     else:
         print(f"File not found: {filepath}")
