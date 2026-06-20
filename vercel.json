@@ -53,6 +53,26 @@
           "value": "text/html"
         }
       ]
+    },
+    {
+      "source": "/gallery/(.*)",
+      "headers": [
+        {
+          "key": "Content-Type",
+          "value": "text/html"
+        }
+      ]
+    },
+    {
+      "source": "/gallery/",
+      "headers": [
+        {
+          "key": "Content-Type",
+          "value": "text/html"
+        }
+      ]
     }
-  ]
+  ],
+  "trailingSlash": true,
+  "cleanUrls": true
 }
