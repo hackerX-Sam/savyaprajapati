@@ -46,6 +46,15 @@
       ]
     },
     {
+      "source": "/gallery",
+      "headers": [
+        {
+          "key": "Content-Type",
+          "value": "text/html"
+        }
+      ]
+    },
+    {
       "source": "/nostalgia-workshop",
       "headers": [
         {
