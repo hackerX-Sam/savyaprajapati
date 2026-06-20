@@ -37,7 +37,7 @@
       ]
     },
     {
-      "source": "/(about|contact|stories|team)\\.1",
+      "source": "/(about|contact|stories|team|gallery)\\.1",
       "headers": [
         {
           "key": "Content-Type",
@@ -53,6 +53,12 @@
           "value": "text/html"
         }
       ]
+    }
+  ],
+  "rewrites": [
+    {
+      "source": "/gallery",
+      "destination": "/gallery.1"
     }
   ]
 }
