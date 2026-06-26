@@ -7,6 +7,11 @@
 	<link rel="profile" href="https://gmpg.org/xfn/11">
 	<meta name='robots' content='index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1' />
 	<style>
+		/* Disable clicking on Recent Stories grid */
+		.elementor-element-f3850b1 a {
+			pointer-events: none !important;
+			cursor: default !important;
+		}
 		img:is([sizes="auto" i], [sizes^="auto," i]) {
 			contain-intrinsic-size: 3000px 1500px
 		}
@@ -2779,7 +2784,7 @@ header[data-elementor-type="header"] {
 
 <section class="custom-hero-section" style="max-width: 1200px; margin: 280px auto 40px auto; position: relative; padding: 0 20px;">
     <div class="custom-hero-slider" style="position: relative; width: 100%; aspect-ratio: 16/9; overflow: hidden; display: flex; align-items: center; justify-content: center; border-radius: 4px;">
-        <img id="hero-slider-img" src="https://ik.imagekit.io/logicsync/tr:w-2000/photo%202.JPG" style="width: 100%; height: 100%; object-fit: cover; transition: opacity 0.3s ease-in-out;" alt="Hero Image">
+        <img id="hero-slider-img" src="https://ik.imagekit.io/logicsync/tr:w-2000/photo%202.JPG" style="width: 100%; height: 100%; object-fit: cover; object-position: center 20%; transition: opacity 0.3s ease-in-out;" alt="Hero Image">
         
         <div class="slider-arrow left-arrow" onclick="prevSlide()" style="position: absolute; left: 20px; top: 50%; transform: translateY(-50%); width: 45px; height: 45px; background: rgba(255,255,255,0.6); backdrop-filter: blur(5px); -webkit-backdrop-filter: blur(5px); color: #000; display: flex; align-items: center; justify-content: center; cursor: pointer; border-radius: 50%; transition: background 0.3s;">
             <svg viewBox="0 0 24 24" width="24" height="24" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg>
@@ -2792,11 +2797,13 @@ header[data-elementor-type="header"] {
 </section>
 
 <script>
-    const images = [
-        "https://ik.imagekit.io/logicsync/tr:w-2000/photo%202.JPG",
-        "https://ik.imagekit.io/logicsync/IMG.112.jpg?updatedAt=1780925347803",
-        "https://ik.imagekit.io/logicsync/0eba3533-9e9f-4609-b167-5d137b160e3e.jpg",
-        "https://ik.imagekit.io/logicsync/ce247119-0ef3-483f-90f3-a0275ec101d1.jpg?updatedAt=1780925325760"
+    const slides = [
+        { src: "https://ik.imagekit.io/logicsync/tr:w-2000/photo%202.JPG", position: "center 20%" },
+        { src: "https://ik.imagekit.io/logicsync/CEOL6373.jpg?updatedAt=1780925351324", position: "center 40%" },
+        { src: "https://ik.imagekit.io/logicsync/IMG.112.jpg?updatedAt=1780925347803", position: "center 0%" },
+        { src: "https://ik.imagekit.io/logicsync/0eba3533-9e9f-4609-b167-5d137b160e3e.jpg", position: "center center" },
+        { src: "https://ik.imagekit.io/logicsync/ce247119-0ef3-483f-90f3-a0275ec101d1.jpg?updatedAt=1780925325760", position: "center center" },
+        { src: "https://ik.imagekit.io/logicsync/1.jpg?updatedAt=1781942165881", position: "center center" }
     ];
     let currentIndex = 0;
     const heroImg = document.getElementById('hero-slider-img');
@@ -2804,18 +2811,19 @@ header[data-elementor-type="header"] {
     function updateSlide() {
         heroImg.style.opacity = '0.6';
         setTimeout(() => {
-            heroImg.src = images[currentIndex];
+            heroImg.src = slides[currentIndex].src;
+            heroImg.style.objectPosition = slides[currentIndex].position;
             heroImg.style.opacity = '1';
         }, 150);
     }
 
     function prevSlide() {
-        currentIndex = (currentIndex > 0) ? currentIndex - 1 : images.length - 1;
+        currentIndex = (currentIndex > 0) ? currentIndex - 1 : slides.length - 1;
         updateSlide();
     }
 
     function nextSlide() {
-        currentIndex = (currentIndex < images.length - 1) ? currentIndex + 1 : 0;
+        currentIndex = (currentIndex < slides.length - 1) ? currentIndex + 1 : 0;
         updateSlide();
     }
     
@@ -2831,37 +2839,7 @@ header[data-elementor-type="header"] {
 </div>
 
 
-<script>
-    const images = [
-        "https://ik.imagekit.io/logicsync/tr:w-2000/photo%202.JPG",
-        "https://ik.imagekit.io/logicsync/IMG.112.jpg?updatedAt=1780925347803",
-        "https://ik.imagekit.io/logicsync/0eba3533-9e9f-4609-b167-5d137b160e3e.jpg",
-        "https://ik.imagekit.io/logicsync/ce247119-0ef3-483f-90f3-a0275ec101d1.jpg?updatedAt=1780925325760"
-    ];
-    let currentIndex = 0;
-    const heroImg = document.getElementById('hero-slider-img');
 
-    function updateSlide() {
-        heroImg.style.opacity = '0.6';
-        setTimeout(() => {
-            heroImg.src = images[currentIndex];
-            heroImg.style.opacity = '1';
-        }, 150);
-    }
-
-    function prevSlide() {
-        currentIndex = (currentIndex > 0) ? currentIndex - 1 : images.length - 1;
-        updateSlide();
-    }
-
-    function nextSlide() {
-        currentIndex = (currentIndex < images.length - 1) ? currentIndex + 1 : 0;
-        updateSlide();
-    }
-    
-    // Auto-advance every 5 seconds
-    setInterval(nextSlide, 5000);
-</script>
 
 
 <div class="elementor-element elementor-widget elementor-widget-image" style="text-align: center; margin-top: 60px; margin-bottom: 20px;">
@@ -2871,37 +2849,7 @@ header[data-elementor-type="header"] {
 </div>
 
 
-<script>
-    const images = [
-        "https://ik.imagekit.io/logicsync/tr:w-2000/photo%202.JPG",
-        "https://ik.imagekit.io/logicsync/IMG.112.jpg?updatedAt=1780925347803",
-        "https://ik.imagekit.io/logicsync/0eba3533-9e9f-4609-b167-5d137b160e3e.jpg",
-        "https://ik.imagekit.io/logicsync/ce247119-0ef3-483f-90f3-a0275ec101d1.jpg?updatedAt=1780925325760"
-    ];
-    let currentIndex = 0;
-    const heroImg = document.getElementById('hero-slider-img');
 
-    function updateSlide() {
-        heroImg.style.opacity = '0.6';
-        setTimeout(() => {
-            heroImg.src = images[currentIndex];
-            heroImg.style.opacity = '1';
-        }, 150);
-    }
-
-    function prevSlide() {
-        currentIndex = (currentIndex > 0) ? currentIndex - 1 : images.length - 1;
-        updateSlide();
-    }
-
-    function nextSlide() {
-        currentIndex = (currentIndex < images.length - 1) ? currentIndex + 1 : 0;
-        updateSlide();
-    }
-    
-    // Auto-advance every 5 seconds
-    setInterval(nextSlide, 5000);
-</script>
 
 
 <div class="elementor-element elementor-widget elementor-widget-image" style="text-align: center; margin-top: 60px; margin-bottom: 20px;">
@@ -2911,37 +2859,7 @@ header[data-elementor-type="header"] {
 </div>
 
 
-<script>
-    const images = [
-        "https://ik.imagekit.io/logicsync/tr:w-2000/photo%202.JPG",
-        "https://ik.imagekit.io/logicsync/IMG.112.jpg?updatedAt=1780925347803",
-        "https://ik.imagekit.io/logicsync/0eba3533-9e9f-4609-b167-5d137b160e3e.jpg",
-        "https://ik.imagekit.io/logicsync/ce247119-0ef3-483f-90f3-a0275ec101d1.jpg?updatedAt=1780925325760"
-    ];
-    let currentIndex = 0;
-    const heroImg = document.getElementById('hero-slider-img');
 
-    function updateSlide() {
-        heroImg.style.opacity = '0.6';
-        setTimeout(() => {
-            heroImg.src = images[currentIndex];
-            heroImg.style.opacity = '1';
-        }, 150);
-    }
-
-    function prevSlide() {
-        currentIndex = (currentIndex > 0) ? currentIndex - 1 : images.length - 1;
-        updateSlide();
-    }
-
-    function nextSlide() {
-        currentIndex = (currentIndex < images.length - 1) ? currentIndex + 1 : 0;
-        updateSlide();
-    }
-    
-    // Auto-advance every 5 seconds
-    setInterval(nextSlide, 5000);
-</script>
 
 
 <div class="elementor-element elementor-widget elementor-widget-image" style="text-align: center; margin-top: 60px; margin-bottom: 20px;">
@@ -2951,37 +2869,7 @@ header[data-elementor-type="header"] {
 </div>
 
 
-<script>
-    const images = [
-        "https://ik.imagekit.io/logicsync/tr:w-2000/photo%202.JPG",
-        "https://ik.imagekit.io/logicsync/IMG.112.jpg?updatedAt=1780925347803",
-        "https://ik.imagekit.io/logicsync/0eba3533-9e9f-4609-b167-5d137b160e3e.jpg",
-        "https://ik.imagekit.io/logicsync/ce247119-0ef3-483f-90f3-a0275ec101d1.jpg?updatedAt=1780925325760"
-    ];
-    let currentIndex = 0;
-    const heroImg = document.getElementById('hero-slider-img');
 
-    function updateSlide() {
-        heroImg.style.opacity = '0.6';
-        setTimeout(() => {
-            heroImg.src = images[currentIndex];
-            heroImg.style.opacity = '1';
-        }, 150);
-    }
-
-    function prevSlide() {
-        currentIndex = (currentIndex > 0) ? currentIndex - 1 : images.length - 1;
-        updateSlide();
-    }
-
-    function nextSlide() {
-        currentIndex = (currentIndex < images.length - 1) ? currentIndex + 1 : 0;
-        updateSlide();
-    }
-    
-    // Auto-advance every 5 seconds
-    setInterval(nextSlide, 5000);
-</script>
 
 
 <div class="elementor-element elementor-widget elementor-widget-image" style="text-align: center; margin-top: 60px; margin-bottom: 20px;">
@@ -2991,37 +2879,7 @@ header[data-elementor-type="header"] {
 </div>
 
 
-<script>
-    const images = [
-        "https://ik.imagekit.io/logicsync/tr:w-2000/photo%202.JPG",
-        "https://ik.imagekit.io/logicsync/IMG.112.jpg?updatedAt=1780925347803",
-        "https://ik.imagekit.io/logicsync/0eba3533-9e9f-4609-b167-5d137b160e3e.jpg",
-        "https://ik.imagekit.io/logicsync/ce247119-0ef3-483f-90f3-a0275ec101d1.jpg?updatedAt=1780925325760"
-    ];
-    let currentIndex = 0;
-    const heroImg = document.getElementById('hero-slider-img');
 
-    function updateSlide() {
-        heroImg.style.opacity = '0.6';
-        setTimeout(() => {
-            heroImg.src = images[currentIndex];
-            heroImg.style.opacity = '1';
-        }, 150);
-    }
-
-    function prevSlide() {
-        currentIndex = (currentIndex > 0) ? currentIndex - 1 : images.length - 1;
-        updateSlide();
-    }
-
-    function nextSlide() {
-        currentIndex = (currentIndex < images.length - 1) ? currentIndex + 1 : 0;
-        updateSlide();
-    }
-    
-    // Auto-advance every 5 seconds
-    setInterval(nextSlide, 5000);
-</script>
 
 
 <div class="elementor-element elementor-widget elementor-widget-image" style="text-align: center; margin-top: 60px; margin-bottom: 20px;">
@@ -3031,37 +2889,7 @@ header[data-elementor-type="header"] {
 </div>
 
 
-<script>
-    const images = [
-        "https://ik.imagekit.io/logicsync/tr:w-2000/photo%202.JPG",
-        "https://ik.imagekit.io/logicsync/IMG.112.jpg?updatedAt=1780925347803",
-        "https://ik.imagekit.io/logicsync/0eba3533-9e9f-4609-b167-5d137b160e3e.jpg",
-        "https://ik.imagekit.io/logicsync/ce247119-0ef3-483f-90f3-a0275ec101d1.jpg?updatedAt=1780925325760"
-    ];
-    let currentIndex = 0;
-    const heroImg = document.getElementById('hero-slider-img');
 
-    function updateSlide() {
-        heroImg.style.opacity = '0.6';
-        setTimeout(() => {
-            heroImg.src = images[currentIndex];
-            heroImg.style.opacity = '1';
-        }, 150);
-    }
-
-    function prevSlide() {
-        currentIndex = (currentIndex > 0) ? currentIndex - 1 : images.length - 1;
-        updateSlide();
-    }
-
-    function nextSlide() {
-        currentIndex = (currentIndex < images.length - 1) ? currentIndex + 1 : 0;
-        updateSlide();
-    }
-    
-    // Auto-advance every 5 seconds
-    setInterval(nextSlide, 5000);
-</script>
 
 
 <div class="elementor-element elementor-widget elementor-widget-image" style="text-align: center; margin-top: 60px; margin-bottom: 20px;">
@@ -3071,37 +2899,7 @@ header[data-elementor-type="header"] {
 </div>
 
 
-<script>
-    const images = [
-        "https://ik.imagekit.io/logicsync/tr:w-2000/photo%202.JPG",
-        "https://ik.imagekit.io/logicsync/IMG.112.jpg?updatedAt=1780925347803",
-        "https://ik.imagekit.io/logicsync/0eba3533-9e9f-4609-b167-5d137b160e3e.jpg",
-        "https://ik.imagekit.io/logicsync/ce247119-0ef3-483f-90f3-a0275ec101d1.jpg?updatedAt=1780925325760"
-    ];
-    let currentIndex = 0;
-    const heroImg = document.getElementById('hero-slider-img');
 
-    function updateSlide() {
-        heroImg.style.opacity = '0.6';
-        setTimeout(() => {
-            heroImg.src = images[currentIndex];
-            heroImg.style.opacity = '1';
-        }, 150);
-    }
-
-    function prevSlide() {
-        currentIndex = (currentIndex > 0) ? currentIndex - 1 : images.length - 1;
-        updateSlide();
-    }
-
-    function nextSlide() {
-        currentIndex = (currentIndex < images.length - 1) ? currentIndex + 1 : 0;
-        updateSlide();
-    }
-    
-    // Auto-advance every 5 seconds
-    setInterval(nextSlide, 5000);
-</script>
 
 
 <div class="elementor-element elementor-widget elementor-widget-image" style="text-align: center; margin-top: 60px; margin-bottom: 20px;">
@@ -3111,37 +2909,7 @@ header[data-elementor-type="header"] {
 </div>
 
 
-<script>
-    const images = [
-        "https://ik.imagekit.io/logicsync/tr:w-2000/photo%202.JPG",
-        "https://ik.imagekit.io/logicsync/IMG.112.jpg?updatedAt=1780925347803",
-        "https://ik.imagekit.io/logicsync/0eba3533-9e9f-4609-b167-5d137b160e3e.jpg",
-        "https://ik.imagekit.io/logicsync/ce247119-0ef3-483f-90f3-a0275ec101d1.jpg?updatedAt=1780925325760"
-    ];
-    let currentIndex = 0;
-    const heroImg = document.getElementById('hero-slider-img');
 
-    function updateSlide() {
-        heroImg.style.opacity = '0.6';
-        setTimeout(() => {
-            heroImg.src = images[currentIndex];
-            heroImg.style.opacity = '1';
-        }, 150);
-    }
-
-    function prevSlide() {
-        currentIndex = (currentIndex > 0) ? currentIndex - 1 : images.length - 1;
-        updateSlide();
-    }
-
-    function nextSlide() {
-        currentIndex = (currentIndex < images.length - 1) ? currentIndex + 1 : 0;
-        updateSlide();
-    }
-    
-    // Auto-advance every 5 seconds
-    setInterval(nextSlide, 5000);
-</script>
 
 
 <div class="elementor-element elementor-widget elementor-widget-image" style="text-align: center; margin-top: 60px; margin-bottom: 20px;">
@@ -3151,37 +2919,7 @@ header[data-elementor-type="header"] {
 </div>
 
 
-<script>
-    const images = [
-        "https://ik.imagekit.io/logicsync/tr:w-2000/photo%202.JPG",
-        "https://ik.imagekit.io/logicsync/IMG.112.jpg?updatedAt=1780925347803",
-        "https://ik.imagekit.io/logicsync/0eba3533-9e9f-4609-b167-5d137b160e3e.jpg",
-        "https://ik.imagekit.io/logicsync/ce247119-0ef3-483f-90f3-a0275ec101d1.jpg?updatedAt=1780925325760"
-    ];
-    let currentIndex = 0;
-    const heroImg = document.getElementById('hero-slider-img');
 
-    function updateSlide() {
-        heroImg.style.opacity = '0.6';
-        setTimeout(() => {
-            heroImg.src = images[currentIndex];
-            heroImg.style.opacity = '1';
-        }, 150);
-    }
-
-    function prevSlide() {
-        currentIndex = (currentIndex > 0) ? currentIndex - 1 : images.length - 1;
-        updateSlide();
-    }
-
-    function nextSlide() {
-        currentIndex = (currentIndex < images.length - 1) ? currentIndex + 1 : 0;
-        updateSlide();
-    }
-    
-    // Auto-advance every 5 seconds
-    setInterval(nextSlide, 5000);
-</script>
 
 
 <div class="elementor-element elementor-widget elementor-widget-image" style="text-align: center; margin-top: 60px; margin-bottom: 20px;">
@@ -3191,37 +2929,7 @@ header[data-elementor-type="header"] {
 </div>
 
 
-<script>
-    const images = [
-        "https://ik.imagekit.io/logicsync/tr:w-2000/photo%202.JPG",
-        "https://ik.imagekit.io/logicsync/IMG.112.jpg?updatedAt=1780925347803",
-        "https://ik.imagekit.io/logicsync/0eba3533-9e9f-4609-b167-5d137b160e3e.jpg",
-        "https://ik.imagekit.io/logicsync/ce247119-0ef3-483f-90f3-a0275ec101d1.jpg?updatedAt=1780925325760"
-    ];
-    let currentIndex = 0;
-    const heroImg = document.getElementById('hero-slider-img');
 
-    function updateSlide() {
-        heroImg.style.opacity = '0.6';
-        setTimeout(() => {
-            heroImg.src = images[currentIndex];
-            heroImg.style.opacity = '1';
-        }, 150);
-    }
-
-    function prevSlide() {
-        currentIndex = (currentIndex > 0) ? currentIndex - 1 : images.length - 1;
-        updateSlide();
-    }
-
-    function nextSlide() {
-        currentIndex = (currentIndex < images.length - 1) ? currentIndex + 1 : 0;
-        updateSlide();
-    }
-    
-    // Auto-advance every 5 seconds
-    setInterval(nextSlide, 5000);
-</script>
 
 
 <div class="elementor-element elementor-widget elementor-widget-image" style="text-align: center; margin-top: 60px; margin-bottom: 20px;">
@@ -3231,37 +2939,7 @@ header[data-elementor-type="header"] {
 </div>
 
 
-<script>
-    const images = [
-        "https://ik.imagekit.io/logicsync/tr:w-2000/photo%202.JPG",
-        "https://ik.imagekit.io/logicsync/IMG.112.jpg?updatedAt=1780925347803",
-        "https://ik.imagekit.io/logicsync/0eba3533-9e9f-4609-b167-5d137b160e3e.jpg",
-        "https://ik.imagekit.io/logicsync/ce247119-0ef3-483f-90f3-a0275ec101d1.jpg?updatedAt=1780925325760"
-    ];
-    let currentIndex = 0;
-    const heroImg = document.getElementById('hero-slider-img');
 
-    function updateSlide() {
-        heroImg.style.opacity = '0.6';
-        setTimeout(() => {
-            heroImg.src = images[currentIndex];
-            heroImg.style.opacity = '1';
-        }, 150);
-    }
-
-    function prevSlide() {
-        currentIndex = (currentIndex > 0) ? currentIndex - 1 : images.length - 1;
-        updateSlide();
-    }
-
-    function nextSlide() {
-        currentIndex = (currentIndex < images.length - 1) ? currentIndex + 1 : 0;
-        updateSlide();
-    }
-    
-    // Auto-advance every 5 seconds
-    setInterval(nextSlide, 5000);
-</script>
 
 
 <div class="elementor-element elementor-widget elementor-widget-image" style="text-align: center; margin-top: 60px; margin-bottom: 20px;">
@@ -3271,37 +2949,7 @@ header[data-elementor-type="header"] {
 </div>
 
 
-<script>
-    const images = [
-        "https://ik.imagekit.io/logicsync/tr:w-2000/photo%202.JPG",
-        "https://ik.imagekit.io/logicsync/IMG.112.jpg?updatedAt=1780925347803",
-        "https://ik.imagekit.io/logicsync/0eba3533-9e9f-4609-b167-5d137b160e3e.jpg",
-        "https://ik.imagekit.io/logicsync/ce247119-0ef3-483f-90f3-a0275ec101d1.jpg?updatedAt=1780925325760"
-    ];
-    let currentIndex = 0;
-    const heroImg = document.getElementById('hero-slider-img');
 
-    function updateSlide() {
-        heroImg.style.opacity = '0.6';
-        setTimeout(() => {
-            heroImg.src = images[currentIndex];
-            heroImg.style.opacity = '1';
-        }, 150);
-    }
-
-    function prevSlide() {
-        currentIndex = (currentIndex > 0) ? currentIndex - 1 : images.length - 1;
-        updateSlide();
-    }
-
-    function nextSlide() {
-        currentIndex = (currentIndex < images.length - 1) ? currentIndex + 1 : 0;
-        updateSlide();
-    }
-    
-    // Auto-advance every 5 seconds
-    setInterval(nextSlide, 5000);
-</script>
 
 
 <div class="elementor-element elementor-widget elementor-widget-image" style="text-align: center; margin-top: 60px; margin-bottom: 20px;">
@@ -3311,37 +2959,7 @@ header[data-elementor-type="header"] {
 </div>
 
 
-<script>
-    const images = [
-        "https://ik.imagekit.io/logicsync/tr:w-2000/photo%202.JPG",
-        "https://ik.imagekit.io/logicsync/IMG.112.jpg?updatedAt=1780925347803",
-        "https://ik.imagekit.io/logicsync/0eba3533-9e9f-4609-b167-5d137b160e3e.jpg",
-        "https://ik.imagekit.io/logicsync/ce247119-0ef3-483f-90f3-a0275ec101d1.jpg?updatedAt=1780925325760"
-    ];
-    let currentIndex = 0;
-    const heroImg = document.getElementById('hero-slider-img');
 
-    function updateSlide() {
-        heroImg.style.opacity = '0.6';
-        setTimeout(() => {
-            heroImg.src = images[currentIndex];
-            heroImg.style.opacity = '1';
-        }, 150);
-    }
-
-    function prevSlide() {
-        currentIndex = (currentIndex > 0) ? currentIndex - 1 : images.length - 1;
-        updateSlide();
-    }
-
-    function nextSlide() {
-        currentIndex = (currentIndex < images.length - 1) ? currentIndex + 1 : 0;
-        updateSlide();
-    }
-    
-    // Auto-advance every 5 seconds
-    setInterval(nextSlide, 5000);
-</script>
 
 
 <div class="elementor-element elementor-widget elementor-widget-image" style="text-align: center; margin-top: 60px; margin-bottom: 20px;">
@@ -3351,37 +2969,7 @@ header[data-elementor-type="header"] {
 </div>
 
 
-<script>
-    const images = [
-        "https://ik.imagekit.io/logicsync/tr:w-2000/photo%202.JPG",
-        "https://ik.imagekit.io/logicsync/IMG.112.jpg?updatedAt=1780925347803",
-        "https://ik.imagekit.io/logicsync/0eba3533-9e9f-4609-b167-5d137b160e3e.jpg",
-        "https://ik.imagekit.io/logicsync/ce247119-0ef3-483f-90f3-a0275ec101d1.jpg?updatedAt=1780925325760"
-    ];
-    let currentIndex = 0;
-    const heroImg = document.getElementById('hero-slider-img');
 
-    function updateSlide() {
-        heroImg.style.opacity = '0.6';
-        setTimeout(() => {
-            heroImg.src = images[currentIndex];
-            heroImg.style.opacity = '1';
-        }, 150);
-    }
-
-    function prevSlide() {
-        currentIndex = (currentIndex > 0) ? currentIndex - 1 : images.length - 1;
-        updateSlide();
-    }
-
-    function nextSlide() {
-        currentIndex = (currentIndex < images.length - 1) ? currentIndex + 1 : 0;
-        updateSlide();
-    }
-    
-    // Auto-advance every 5 seconds
-    setInterval(nextSlide, 5000);
-</script>
 
 
 <div class="elementor-element elementor-widget elementor-widget-image" style="text-align: center; margin-top: 60px; margin-bottom: 20px;">
@@ -3391,37 +2979,7 @@ header[data-elementor-type="header"] {
 </div>
 
 
-<script>
-    const images = [
-        "https://ik.imagekit.io/logicsync/tr:w-2000/photo%202.JPG",
-        "https://ik.imagekit.io/logicsync/IMG.112.jpg?updatedAt=1780925347803",
-        "https://ik.imagekit.io/logicsync/0eba3533-9e9f-4609-b167-5d137b160e3e.jpg",
-        "https://ik.imagekit.io/logicsync/ce247119-0ef3-483f-90f3-a0275ec101d1.jpg?updatedAt=1780925325760"
-    ];
-    let currentIndex = 0;
-    const heroImg = document.getElementById('hero-slider-img');
 
-    function updateSlide() {
-        heroImg.style.opacity = '0.6';
-        setTimeout(() => {
-            heroImg.src = images[currentIndex];
-            heroImg.style.opacity = '1';
-        }, 150);
-    }
-
-    function prevSlide() {
-        currentIndex = (currentIndex > 0) ? currentIndex - 1 : images.length - 1;
-        updateSlide();
-    }
-
-    function nextSlide() {
-        currentIndex = (currentIndex < images.length - 1) ? currentIndex + 1 : 0;
-        updateSlide();
-    }
-    
-    // Auto-advance every 5 seconds
-    setInterval(nextSlide, 5000);
-</script>
 
 
 <div class="elementor-element elementor-widget elementor-widget-image" style="text-align: center; margin-top: 60px; margin-bottom: 20px;">
@@ -3431,37 +2989,7 @@ header[data-elementor-type="header"] {
 </div>
 
 
-<script>
-    const images = [
-        "https://ik.imagekit.io/logicsync/tr:w-2000/photo%202.JPG",
-        "https://ik.imagekit.io/logicsync/IMG.112.jpg?updatedAt=1780925347803",
-        "https://ik.imagekit.io/logicsync/0eba3533-9e9f-4609-b167-5d137b160e3e.jpg",
-        "https://ik.imagekit.io/logicsync/ce247119-0ef3-483f-90f3-a0275ec101d1.jpg?updatedAt=1780925325760"
-    ];
-    let currentIndex = 0;
-    const heroImg = document.getElementById('hero-slider-img');
 
-    function updateSlide() {
-        heroImg.style.opacity = '0.6';
-        setTimeout(() => {
-            heroImg.src = images[currentIndex];
-            heroImg.style.opacity = '1';
-        }, 150);
-    }
-
-    function prevSlide() {
-        currentIndex = (currentIndex > 0) ? currentIndex - 1 : images.length - 1;
-        updateSlide();
-    }
-
-    function nextSlide() {
-        currentIndex = (currentIndex < images.length - 1) ? currentIndex + 1 : 0;
-        updateSlide();
-    }
-    
-    // Auto-advance every 5 seconds
-    setInterval(nextSlide, 5000);
-</script>
 
 
 <div class="elementor-element elementor-widget elementor-widget-image" style="text-align: center; margin-top: 60px; margin-bottom: 20px;">
@@ -3471,37 +2999,7 @@ header[data-elementor-type="header"] {
 </div>
 
 
-<script>
-    const images = [
-        "https://ik.imagekit.io/logicsync/tr:w-2000/photo%202.JPG",
-        "https://ik.imagekit.io/logicsync/IMG.112.jpg?updatedAt=1780925347803",
-        "https://ik.imagekit.io/logicsync/0eba3533-9e9f-4609-b167-5d137b160e3e.jpg",
-        "https://ik.imagekit.io/logicsync/ce247119-0ef3-483f-90f3-a0275ec101d1.jpg?updatedAt=1780925325760"
-    ];
-    let currentIndex = 0;
-    const heroImg = document.getElementById('hero-slider-img');
 
-    function updateSlide() {
-        heroImg.style.opacity = '0.6';
-        setTimeout(() => {
-            heroImg.src = images[currentIndex];
-            heroImg.style.opacity = '1';
-        }, 150);
-    }
-
-    function prevSlide() {
-        currentIndex = (currentIndex > 0) ? currentIndex - 1 : images.length - 1;
-        updateSlide();
-    }
-
-    function nextSlide() {
-        currentIndex = (currentIndex < images.length - 1) ? currentIndex + 1 : 0;
-        updateSlide();
-    }
-    
-    // Auto-advance every 5 seconds
-    setInterval(nextSlide, 5000);
-</script>
 
 
 <div class="elementor-element elementor-widget elementor-widget-image" style="text-align: center; margin-top: 60px; margin-bottom: 20px;">
@@ -3511,37 +3009,7 @@ header[data-elementor-type="header"] {
 </div>
 
 
-<script>
-    const images = [
-        "https://ik.imagekit.io/logicsync/tr:w-2000/photo%202.JPG",
-        "https://ik.imagekit.io/logicsync/IMG.112.jpg?updatedAt=1780925347803",
-        "https://ik.imagekit.io/logicsync/0eba3533-9e9f-4609-b167-5d137b160e3e.jpg",
-        "https://ik.imagekit.io/logicsync/ce247119-0ef3-483f-90f3-a0275ec101d1.jpg?updatedAt=1780925325760"
-    ];
-    let currentIndex = 0;
-    const heroImg = document.getElementById('hero-slider-img');
 
-    function updateSlide() {
-        heroImg.style.opacity = '0.6';
-        setTimeout(() => {
-            heroImg.src = images[currentIndex];
-            heroImg.style.opacity = '1';
-        }, 150);
-    }
-
-    function prevSlide() {
-        currentIndex = (currentIndex > 0) ? currentIndex - 1 : images.length - 1;
-        updateSlide();
-    }
-
-    function nextSlide() {
-        currentIndex = (currentIndex < images.length - 1) ? currentIndex + 1 : 0;
-        updateSlide();
-    }
-    
-    // Auto-advance every 5 seconds
-    setInterval(nextSlide, 5000);
-</script>
 
 
 <div class="elementor-element elementor-widget elementor-widget-image" style="text-align: center; margin-top: 60px; margin-bottom: 20px;">
@@ -3551,37 +3019,7 @@ header[data-elementor-type="header"] {
 </div>
 
 
-<script>
-    const images = [
-        "https://ik.imagekit.io/logicsync/tr:w-2000/photo%202.JPG",
-        "https://ik.imagekit.io/logicsync/IMG.112.jpg?updatedAt=1780925347803",
-        "https://ik.imagekit.io/logicsync/0eba3533-9e9f-4609-b167-5d137b160e3e.jpg",
-        "https://ik.imagekit.io/logicsync/ce247119-0ef3-483f-90f3-a0275ec101d1.jpg?updatedAt=1780925325760"
-    ];
-    let currentIndex = 0;
-    const heroImg = document.getElementById('hero-slider-img');
 
-    function updateSlide() {
-        heroImg.style.opacity = '0.6';
-        setTimeout(() => {
-            heroImg.src = images[currentIndex];
-            heroImg.style.opacity = '1';
-        }, 150);
-    }
-
-    function prevSlide() {
-        currentIndex = (currentIndex > 0) ? currentIndex - 1 : images.length - 1;
-        updateSlide();
-    }
-
-    function nextSlide() {
-        currentIndex = (currentIndex < images.length - 1) ? currentIndex + 1 : 0;
-        updateSlide();
-    }
-    
-    // Auto-advance every 5 seconds
-    setInterval(nextSlide, 5000);
-</script>
 
 
 <div class="elementor-element elementor-widget elementor-widget-image" style="text-align: center; margin-top: 60px; margin-bottom: 20px;">
@@ -3591,37 +3029,7 @@ header[data-elementor-type="header"] {
 </div>
 
 
-<script>
-    const images = [
-        "https://ik.imagekit.io/logicsync/tr:w-2000/photo%202.JPG",
-        "https://ik.imagekit.io/logicsync/IMG.112.jpg?updatedAt=1780925347803",
-        "https://ik.imagekit.io/logicsync/0eba3533-9e9f-4609-b167-5d137b160e3e.jpg",
-        "https://ik.imagekit.io/logicsync/ce247119-0ef3-483f-90f3-a0275ec101d1.jpg?updatedAt=1780925325760"
-    ];
-    let currentIndex = 0;
-    const heroImg = document.getElementById('hero-slider-img');
 
-    function updateSlide() {
-        heroImg.style.opacity = '0.6';
-        setTimeout(() => {
-            heroImg.src = images[currentIndex];
-            heroImg.style.opacity = '1';
-        }, 150);
-    }
-
-    function prevSlide() {
-        currentIndex = (currentIndex > 0) ? currentIndex - 1 : images.length - 1;
-        updateSlide();
-    }
-
-    function nextSlide() {
-        currentIndex = (currentIndex < images.length - 1) ? currentIndex + 1 : 0;
-        updateSlide();
-    }
-    
-    // Auto-advance every 5 seconds
-    setInterval(nextSlide, 5000);
-</script>
 
 
 <div class="elementor-element elementor-widget elementor-widget-image" style="text-align: center; margin-top: 60px; margin-bottom: 20px;">
@@ -3631,37 +3039,7 @@ header[data-elementor-type="header"] {
 </div>
 
 
-<script>
-    const images = [
-        "https://ik.imagekit.io/logicsync/tr:w-2000/photo%202.JPG",
-        "https://ik.imagekit.io/logicsync/IMG.112.jpg?updatedAt=1780925347803",
-        "https://ik.imagekit.io/logicsync/0eba3533-9e9f-4609-b167-5d137b160e3e.jpg",
-        "https://ik.imagekit.io/logicsync/ce247119-0ef3-483f-90f3-a0275ec101d1.jpg?updatedAt=1780925325760"
-    ];
-    let currentIndex = 0;
-    const heroImg = document.getElementById('hero-slider-img');
 
-    function updateSlide() {
-        heroImg.style.opacity = '0.6';
-        setTimeout(() => {
-            heroImg.src = images[currentIndex];
-            heroImg.style.opacity = '1';
-        }, 150);
-    }
-
-    function prevSlide() {
-        currentIndex = (currentIndex > 0) ? currentIndex - 1 : images.length - 1;
-        updateSlide();
-    }
-
-    function nextSlide() {
-        currentIndex = (currentIndex < images.length - 1) ? currentIndex + 1 : 0;
-        updateSlide();
-    }
-    
-    // Auto-advance every 5 seconds
-    setInterval(nextSlide, 5000);
-</script>
 
 
 <div class="elementor-element elementor-widget elementor-widget-image" style="text-align: center; margin-top: 60px; margin-bottom: 20px;">
@@ -3671,37 +3049,7 @@ header[data-elementor-type="header"] {
 </div>
 
 
-<script>
-    const images = [
-        "https://ik.imagekit.io/logicsync/tr:w-2000/photo%202.JPG",
-        "https://ik.imagekit.io/logicsync/IMG.112.jpg?updatedAt=1780925347803",
-        "https://ik.imagekit.io/logicsync/0eba3533-9e9f-4609-b167-5d137b160e3e.jpg",
-        "https://ik.imagekit.io/logicsync/ce247119-0ef3-483f-90f3-a0275ec101d1.jpg?updatedAt=1780925325760"
-    ];
-    let currentIndex = 0;
-    const heroImg = document.getElementById('hero-slider-img');
 
-    function updateSlide() {
-        heroImg.style.opacity = '0.6';
-        setTimeout(() => {
-            heroImg.src = images[currentIndex];
-            heroImg.style.opacity = '1';
-        }, 150);
-    }
-
-    function prevSlide() {
-        currentIndex = (currentIndex > 0) ? currentIndex - 1 : images.length - 1;
-        updateSlide();
-    }
-
-    function nextSlide() {
-        currentIndex = (currentIndex < images.length - 1) ? currentIndex + 1 : 0;
-        updateSlide();
-    }
-    
-    // Auto-advance every 5 seconds
-    setInterval(nextSlide, 5000);
-</script>
 
 
 <div class="elementor-element elementor-widget elementor-widget-image" style="text-align: center; margin-top: 60px; margin-bottom: 20px;">
@@ -3711,37 +3059,7 @@ header[data-elementor-type="header"] {
 </div>
 
 
-<script>
-    const images = [
-        "https://ik.imagekit.io/logicsync/tr:w-2000/photo%202.JPG",
-        "https://ik.imagekit.io/logicsync/IMG.112.jpg?updatedAt=1780925347803",
-        "https://ik.imagekit.io/logicsync/0eba3533-9e9f-4609-b167-5d137b160e3e.jpg",
-        "https://ik.imagekit.io/logicsync/ce247119-0ef3-483f-90f3-a0275ec101d1.jpg?updatedAt=1780925325760"
-    ];
-    let currentIndex = 0;
-    const heroImg = document.getElementById('hero-slider-img');
 
-    function updateSlide() {
-        heroImg.style.opacity = '0.6';
-        setTimeout(() => {
-            heroImg.src = images[currentIndex];
-            heroImg.style.opacity = '1';
-        }, 150);
-    }
-
-    function prevSlide() {
-        currentIndex = (currentIndex > 0) ? currentIndex - 1 : images.length - 1;
-        updateSlide();
-    }
-
-    function nextSlide() {
-        currentIndex = (currentIndex < images.length - 1) ? currentIndex + 1 : 0;
-        updateSlide();
-    }
-    
-    // Auto-advance every 5 seconds
-    setInterval(nextSlide, 5000);
-</script>
 
 
 <div class="elementor-element elementor-widget elementor-widget-image" style="text-align: center; margin-top: 60px; margin-bottom: 20px;">
@@ -3751,37 +3069,7 @@ header[data-elementor-type="header"] {
 </div>
 
 
-<script>
-    const images = [
-        "https://ik.imagekit.io/logicsync/tr:w-2000/photo%202.JPG",
-        "https://ik.imagekit.io/logicsync/IMG.112.jpg?updatedAt=1780925347803",
-        "https://ik.imagekit.io/logicsync/0eba3533-9e9f-4609-b167-5d137b160e3e.jpg",
-        "https://ik.imagekit.io/logicsync/ce247119-0ef3-483f-90f3-a0275ec101d1.jpg?updatedAt=1780925325760"
-    ];
-    let currentIndex = 0;
-    const heroImg = document.getElementById('hero-slider-img');
 
-    function updateSlide() {
-        heroImg.style.opacity = '0.6';
-        setTimeout(() => {
-            heroImg.src = images[currentIndex];
-            heroImg.style.opacity = '1';
-        }, 150);
-    }
-
-    function prevSlide() {
-        currentIndex = (currentIndex > 0) ? currentIndex - 1 : images.length - 1;
-        updateSlide();
-    }
-
-    function nextSlide() {
-        currentIndex = (currentIndex < images.length - 1) ? currentIndex + 1 : 0;
-        updateSlide();
-    }
-    
-    // Auto-advance every 5 seconds
-    setInterval(nextSlide, 5000);
-</script>
 
 
 <div class="elementor-element elementor-widget elementor-widget-image" style="text-align: center; margin-top: 60px; margin-bottom: 20px;">
@@ -3791,37 +3079,7 @@ header[data-elementor-type="header"] {
 </div>
 
 
-<script>
-    const images = [
-        "https://ik.imagekit.io/logicsync/tr:w-2000/photo%202.JPG",
-        "https://ik.imagekit.io/logicsync/IMG.112.jpg?updatedAt=1780925347803",
-        "https://ik.imagekit.io/logicsync/0eba3533-9e9f-4609-b167-5d137b160e3e.jpg",
-        "https://ik.imagekit.io/logicsync/ce247119-0ef3-483f-90f3-a0275ec101d1.jpg?updatedAt=1780925325760"
-    ];
-    let currentIndex = 0;
-    const heroImg = document.getElementById('hero-slider-img');
 
-    function updateSlide() {
-        heroImg.style.opacity = '0.6';
-        setTimeout(() => {
-            heroImg.src = images[currentIndex];
-            heroImg.style.opacity = '1';
-        }, 150);
-    }
-
-    function prevSlide() {
-        currentIndex = (currentIndex > 0) ? currentIndex - 1 : images.length - 1;
-        updateSlide();
-    }
-
-    function nextSlide() {
-        currentIndex = (currentIndex < images.length - 1) ? currentIndex + 1 : 0;
-        updateSlide();
-    }
-    
-    // Auto-advance every 5 seconds
-    setInterval(nextSlide, 5000);
-</script>
 
 
 <div class="elementor-element elementor-widget elementor-widget-image" style="text-align: center; margin-top: 60px; margin-bottom: 20px;">
@@ -3831,37 +3089,7 @@ header[data-elementor-type="header"] {
 </div>
 
 
-<script>
-    const images = [
-        "https://ik.imagekit.io/logicsync/tr:w-2000/photo%202.JPG",
-        "https://ik.imagekit.io/logicsync/IMG.112.jpg?updatedAt=1780925347803",
-        "https://ik.imagekit.io/logicsync/0eba3533-9e9f-4609-b167-5d137b160e3e.jpg",
-        "https://ik.imagekit.io/logicsync/ce247119-0ef3-483f-90f3-a0275ec101d1.jpg?updatedAt=1780925325760"
-    ];
-    let currentIndex = 0;
-    const heroImg = document.getElementById('hero-slider-img');
 
-    function updateSlide() {
-        heroImg.style.opacity = '0.6';
-        setTimeout(() => {
-            heroImg.src = images[currentIndex];
-            heroImg.style.opacity = '1';
-        }, 150);
-    }
-
-    function prevSlide() {
-        currentIndex = (currentIndex > 0) ? currentIndex - 1 : images.length - 1;
-        updateSlide();
-    }
-
-    function nextSlide() {
-        currentIndex = (currentIndex < images.length - 1) ? currentIndex + 1 : 0;
-        updateSlide();
-    }
-    
-    // Auto-advance every 5 seconds
-    setInterval(nextSlide, 5000);
-</script>
 
 
 <div class="elementor-element elementor-widget elementor-widget-image" style="text-align: center; margin-top: 60px; margin-bottom: 20px;">
@@ -3871,1837 +3099,307 @@ header[data-elementor-type="header"] {
 </div>
 
 
-<script>
-    const images = [
-        "https://ik.imagekit.io/logicsync/tr:w-2000/photo%202.JPG",
-        "https://ik.imagekit.io/logicsync/IMG.112.jpg?updatedAt=1780925347803",
-        "https://ik.imagekit.io/logicsync/0eba3533-9e9f-4609-b167-5d137b160e3e.jpg",
-        "https://ik.imagekit.io/logicsync/ce247119-0ef3-483f-90f3-a0275ec101d1.jpg?updatedAt=1780925325760"
-    ];
-    let currentIndex = 0;
-    const heroImg = document.getElementById('hero-slider-img');
-
-    function updateSlide() {
-        heroImg.style.opacity = '0.6';
-        setTimeout(() => {
-            heroImg.src = images[currentIndex];
-            heroImg.style.opacity = '1';
-        }, 150);
-    }
-
-    function prevSlide() {
-        currentIndex = (currentIndex > 0) ? currentIndex - 1 : images.length - 1;
-        updateSlide();
-    }
-
-    function nextSlide() {
-        currentIndex = (currentIndex < images.length - 1) ? currentIndex + 1 : 0;
-        updateSlide();
-    }
-    
-    // Auto-advance every 5 seconds
-    setInterval(nextSlide, 5000);
-</script>
-
-
-
-
-
-<script>
-    const images = [
-        "https://ik.imagekit.io/logicsync/tr:w-2000/photo%202.JPG",
-        "https://ik.imagekit.io/logicsync/IMG.112.jpg?updatedAt=1780925347803",
-        "https://ik.imagekit.io/logicsync/0eba3533-9e9f-4609-b167-5d137b160e3e.jpg",
-        "https://ik.imagekit.io/logicsync/ce247119-0ef3-483f-90f3-a0275ec101d1.jpg?updatedAt=1780925325760"
-    ];
-    let currentIndex = 0;
-    const heroImg = document.getElementById('hero-slider-img');
-
-    function updateSlide() {
-        heroImg.style.opacity = '0.6';
-        setTimeout(() => {
-            heroImg.src = images[currentIndex];
-            heroImg.style.opacity = '1';
-        }, 150);
-    }
-
-    function prevSlide() {
-        currentIndex = (currentIndex > 0) ? currentIndex - 1 : images.length - 1;
-        updateSlide();
-    }
-
-    function nextSlide() {
-        currentIndex = (currentIndex < images.length - 1) ? currentIndex + 1 : 0;
-        updateSlide();
-    }
-    
-    // Auto-advance every 5 seconds
-    setInterval(nextSlide, 5000);
-</script>
-
-
-
-
-
-<script>
-    const images = [
-        "https://ik.imagekit.io/logicsync/tr:w-2000/photo%202.JPG",
-        "https://ik.imagekit.io/logicsync/IMG.112.jpg?updatedAt=1780925347803",
-        "https://ik.imagekit.io/logicsync/0eba3533-9e9f-4609-b167-5d137b160e3e.jpg",
-        "https://ik.imagekit.io/logicsync/ce247119-0ef3-483f-90f3-a0275ec101d1.jpg?updatedAt=1780925325760"
-    ];
-    let currentIndex = 0;
-    const heroImg = document.getElementById('hero-slider-img');
-
-    function updateSlide() {
-        heroImg.style.opacity = '0.6';
-        setTimeout(() => {
-            heroImg.src = images[currentIndex];
-            heroImg.style.opacity = '1';
-        }, 150);
-    }
-
-    function prevSlide() {
-        currentIndex = (currentIndex > 0) ? currentIndex - 1 : images.length - 1;
-        updateSlide();
-    }
-
-    function nextSlide() {
-        currentIndex = (currentIndex < images.length - 1) ? currentIndex + 1 : 0;
-        updateSlide();
-    }
-    
-    // Auto-advance every 5 seconds
-    setInterval(nextSlide, 5000);
-</script>
-
-
-
-
-
-<script>
-    const images = [
-        "https://ik.imagekit.io/logicsync/tr:w-2000/photo%202.JPG",
-        "https://ik.imagekit.io/logicsync/IMG.112.jpg?updatedAt=1780925347803",
-        "https://ik.imagekit.io/logicsync/0eba3533-9e9f-4609-b167-5d137b160e3e.jpg",
-        "https://ik.imagekit.io/logicsync/ce247119-0ef3-483f-90f3-a0275ec101d1.jpg?updatedAt=1780925325760"
-    ];
-    let currentIndex = 0;
-    const heroImg = document.getElementById('hero-slider-img');
-
-    function updateSlide() {
-        heroImg.style.opacity = '0.6';
-        setTimeout(() => {
-            heroImg.src = images[currentIndex];
-            heroImg.style.opacity = '1';
-        }, 150);
-    }
-
-    function prevSlide() {
-        currentIndex = (currentIndex > 0) ? currentIndex - 1 : images.length - 1;
-        updateSlide();
-    }
-
-    function nextSlide() {
-        currentIndex = (currentIndex < images.length - 1) ? currentIndex + 1 : 0;
-        updateSlide();
-    }
-    
-    // Auto-advance every 5 seconds
-    setInterval(nextSlide, 5000);
-</script>
-
-
-
-
-
-<script>
-    const images = [
-        "https://ik.imagekit.io/logicsync/tr:w-2000/photo%202.JPG",
-        "https://ik.imagekit.io/logicsync/IMG.112.jpg?updatedAt=1780925347803",
-        "https://ik.imagekit.io/logicsync/0eba3533-9e9f-4609-b167-5d137b160e3e.jpg",
-        "https://ik.imagekit.io/logicsync/ce247119-0ef3-483f-90f3-a0275ec101d1.jpg?updatedAt=1780925325760"
-    ];
-    let currentIndex = 0;
-    const heroImg = document.getElementById('hero-slider-img');
-
-    function updateSlide() {
-        heroImg.style.opacity = '0.6';
-        setTimeout(() => {
-            heroImg.src = images[currentIndex];
-            heroImg.style.opacity = '1';
-        }, 150);
-    }
-
-    function prevSlide() {
-        currentIndex = (currentIndex > 0) ? currentIndex - 1 : images.length - 1;
-        updateSlide();
-    }
-
-    function nextSlide() {
-        currentIndex = (currentIndex < images.length - 1) ? currentIndex + 1 : 0;
-        updateSlide();
-    }
-    
-    // Auto-advance every 5 seconds
-    setInterval(nextSlide, 5000);
-</script>
-
-
-
-
-
-<script>
-    const images = [
-        "https://ik.imagekit.io/logicsync/tr:w-2000/photo%202.JPG",
-        "https://ik.imagekit.io/logicsync/IMG.112.jpg?updatedAt=1780925347803",
-        "https://ik.imagekit.io/logicsync/0eba3533-9e9f-4609-b167-5d137b160e3e.jpg",
-        "https://ik.imagekit.io/logicsync/ce247119-0ef3-483f-90f3-a0275ec101d1.jpg?updatedAt=1780925325760"
-    ];
-    let currentIndex = 0;
-    const heroImg = document.getElementById('hero-slider-img');
-
-    function updateSlide() {
-        heroImg.style.opacity = '0.6';
-        setTimeout(() => {
-            heroImg.src = images[currentIndex];
-            heroImg.style.opacity = '1';
-        }, 150);
-    }
-
-    function prevSlide() {
-        currentIndex = (currentIndex > 0) ? currentIndex - 1 : images.length - 1;
-        updateSlide();
-    }
-
-    function nextSlide() {
-        currentIndex = (currentIndex < images.length - 1) ? currentIndex + 1 : 0;
-        updateSlide();
-    }
-    
-    // Auto-advance every 5 seconds
-    setInterval(nextSlide, 5000);
-</script>
-
-
-
-
-
-<script>
-    const images = [
-        "https://ik.imagekit.io/logicsync/tr:w-2000/photo%202.JPG",
-        "https://ik.imagekit.io/logicsync/IMG.112.jpg?updatedAt=1780925347803",
-        "https://ik.imagekit.io/logicsync/0eba3533-9e9f-4609-b167-5d137b160e3e.jpg",
-        "https://ik.imagekit.io/logicsync/ce247119-0ef3-483f-90f3-a0275ec101d1.jpg?updatedAt=1780925325760"
-    ];
-    let currentIndex = 0;
-    const heroImg = document.getElementById('hero-slider-img');
-
-    function updateSlide() {
-        heroImg.style.opacity = '0.6';
-        setTimeout(() => {
-            heroImg.src = images[currentIndex];
-            heroImg.style.opacity = '1';
-        }, 150);
-    }
-
-    function prevSlide() {
-        currentIndex = (currentIndex > 0) ? currentIndex - 1 : images.length - 1;
-        updateSlide();
-    }
-
-    function nextSlide() {
-        currentIndex = (currentIndex < images.length - 1) ? currentIndex + 1 : 0;
-        updateSlide();
-    }
-    
-    // Auto-advance every 5 seconds
-    setInterval(nextSlide, 5000);
-</script>
-
-
-
-
-
-<script>
-    const images = [
-        "https://ik.imagekit.io/logicsync/tr:w-2000/photo%202.JPG",
-        "https://ik.imagekit.io/logicsync/IMG.112.jpg?updatedAt=1780925347803",
-        "https://ik.imagekit.io/logicsync/0eba3533-9e9f-4609-b167-5d137b160e3e.jpg",
-        "https://ik.imagekit.io/logicsync/ce247119-0ef3-483f-90f3-a0275ec101d1.jpg?updatedAt=1780925325760"
-    ];
-    let currentIndex = 0;
-    const heroImg = document.getElementById('hero-slider-img');
-
-    function updateSlide() {
-        heroImg.style.opacity = '0.6';
-        setTimeout(() => {
-            heroImg.src = images[currentIndex];
-            heroImg.style.opacity = '1';
-        }, 150);
-    }
-
-    function prevSlide() {
-        currentIndex = (currentIndex > 0) ? currentIndex - 1 : images.length - 1;
-        updateSlide();
-    }
-
-    function nextSlide() {
-        currentIndex = (currentIndex < images.length - 1) ? currentIndex + 1 : 0;
-        updateSlide();
-    }
-    
-    // Auto-advance every 5 seconds
-    setInterval(nextSlide, 5000);
-</script>
-
-
-
-
-
-<script>
-    const images = [
-        "https://ik.imagekit.io/logicsync/tr:w-2000/photo%202.JPG",
-        "https://ik.imagekit.io/logicsync/IMG.112.jpg?updatedAt=1780925347803",
-        "https://ik.imagekit.io/logicsync/0eba3533-9e9f-4609-b167-5d137b160e3e.jpg",
-        "https://ik.imagekit.io/logicsync/ce247119-0ef3-483f-90f3-a0275ec101d1.jpg?updatedAt=1780925325760"
-    ];
-    let currentIndex = 0;
-    const heroImg = document.getElementById('hero-slider-img');
-
-    function updateSlide() {
-        heroImg.style.opacity = '0.6';
-        setTimeout(() => {
-            heroImg.src = images[currentIndex];
-            heroImg.style.opacity = '1';
-        }, 150);
-    }
-
-    function prevSlide() {
-        currentIndex = (currentIndex > 0) ? currentIndex - 1 : images.length - 1;
-        updateSlide();
-    }
-
-    function nextSlide() {
-        currentIndex = (currentIndex < images.length - 1) ? currentIndex + 1 : 0;
-        updateSlide();
-    }
-    
-    // Auto-advance every 5 seconds
-    setInterval(nextSlide, 5000);
-</script>
-
-
-
-
-
-<script>
-    const images = [
-        "https://ik.imagekit.io/logicsync/tr:w-2000/photo%202.JPG",
-        "https://ik.imagekit.io/logicsync/IMG.112.jpg?updatedAt=1780925347803",
-        "https://ik.imagekit.io/logicsync/0eba3533-9e9f-4609-b167-5d137b160e3e.jpg",
-        "https://ik.imagekit.io/logicsync/ce247119-0ef3-483f-90f3-a0275ec101d1.jpg?updatedAt=1780925325760"
-    ];
-    let currentIndex = 0;
-    const heroImg = document.getElementById('hero-slider-img');
-
-    function updateSlide() {
-        heroImg.style.opacity = '0.6';
-        setTimeout(() => {
-            heroImg.src = images[currentIndex];
-            heroImg.style.opacity = '1';
-        }, 150);
-    }
-
-    function prevSlide() {
-        currentIndex = (currentIndex > 0) ? currentIndex - 1 : images.length - 1;
-        updateSlide();
-    }
-
-    function nextSlide() {
-        currentIndex = (currentIndex < images.length - 1) ? currentIndex + 1 : 0;
-        updateSlide();
-    }
-    
-    // Auto-advance every 5 seconds
-    setInterval(nextSlide, 5000);
-</script>
-
-
-
-
-
-<script>
-    const images = [
-        "https://ik.imagekit.io/logicsync/tr:w-2000/photo%202.JPG",
-        "https://ik.imagekit.io/logicsync/IMG.112.jpg?updatedAt=1780925347803",
-        "https://ik.imagekit.io/logicsync/0eba3533-9e9f-4609-b167-5d137b160e3e.jpg",
-        "https://ik.imagekit.io/logicsync/ce247119-0ef3-483f-90f3-a0275ec101d1.jpg?updatedAt=1780925325760"
-    ];
-    let currentIndex = 0;
-    const heroImg = document.getElementById('hero-slider-img');
-
-    function updateSlide() {
-        heroImg.style.opacity = '0.6';
-        setTimeout(() => {
-            heroImg.src = images[currentIndex];
-            heroImg.style.opacity = '1';
-        }, 150);
-    }
-
-    function prevSlide() {
-        currentIndex = (currentIndex > 0) ? currentIndex - 1 : images.length - 1;
-        updateSlide();
-    }
-
-    function nextSlide() {
-        currentIndex = (currentIndex < images.length - 1) ? currentIndex + 1 : 0;
-        updateSlide();
-    }
-    
-    // Auto-advance every 5 seconds
-    setInterval(nextSlide, 5000);
-</script>
-
-
-
-
-
-<script>
-    const images = [
-        "https://ik.imagekit.io/logicsync/tr:w-2000/photo%202.JPG",
-        "https://ik.imagekit.io/logicsync/IMG.112.jpg?updatedAt=1780925347803",
-        "https://ik.imagekit.io/logicsync/0eba3533-9e9f-4609-b167-5d137b160e3e.jpg",
-        "https://ik.imagekit.io/logicsync/ce247119-0ef3-483f-90f3-a0275ec101d1.jpg?updatedAt=1780925325760"
-    ];
-    let currentIndex = 0;
-    const heroImg = document.getElementById('hero-slider-img');
-
-    function updateSlide() {
-        heroImg.style.opacity = '0.6';
-        setTimeout(() => {
-            heroImg.src = images[currentIndex];
-            heroImg.style.opacity = '1';
-        }, 150);
-    }
-
-    function prevSlide() {
-        currentIndex = (currentIndex > 0) ? currentIndex - 1 : images.length - 1;
-        updateSlide();
-    }
-
-    function nextSlide() {
-        currentIndex = (currentIndex < images.length - 1) ? currentIndex + 1 : 0;
-        updateSlide();
-    }
-    
-    // Auto-advance every 5 seconds
-    setInterval(nextSlide, 5000);
-</script>
-
-
-
-
-
-<script>
-    const images = [
-        "https://ik.imagekit.io/logicsync/tr:w-2000/photo%202.JPG",
-        "https://ik.imagekit.io/logicsync/IMG.112.jpg?updatedAt=1780925347803",
-        "https://ik.imagekit.io/logicsync/0eba3533-9e9f-4609-b167-5d137b160e3e.jpg",
-        "https://ik.imagekit.io/logicsync/ce247119-0ef3-483f-90f3-a0275ec101d1.jpg?updatedAt=1780925325760"
-    ];
-    let currentIndex = 0;
-    const heroImg = document.getElementById('hero-slider-img');
-
-    function updateSlide() {
-        heroImg.style.opacity = '0.6';
-        setTimeout(() => {
-            heroImg.src = images[currentIndex];
-            heroImg.style.opacity = '1';
-        }, 150);
-    }
-
-    function prevSlide() {
-        currentIndex = (currentIndex > 0) ? currentIndex - 1 : images.length - 1;
-        updateSlide();
-    }
-
-    function nextSlide() {
-        currentIndex = (currentIndex < images.length - 1) ? currentIndex + 1 : 0;
-        updateSlide();
-    }
-    
-    // Auto-advance every 5 seconds
-    setInterval(nextSlide, 5000);
-</script>
-
-
-
-
-
-<script>
-    const images = [
-        "https://ik.imagekit.io/logicsync/tr:w-2000/photo%202.JPG",
-        "https://ik.imagekit.io/logicsync/IMG.112.jpg?updatedAt=1780925347803",
-        "https://ik.imagekit.io/logicsync/0eba3533-9e9f-4609-b167-5d137b160e3e.jpg",
-        "https://ik.imagekit.io/logicsync/ce247119-0ef3-483f-90f3-a0275ec101d1.jpg?updatedAt=1780925325760"
-    ];
-    let currentIndex = 0;
-    const heroImg = document.getElementById('hero-slider-img');
-
-    function updateSlide() {
-        heroImg.style.opacity = '0.6';
-        setTimeout(() => {
-            heroImg.src = images[currentIndex];
-            heroImg.style.opacity = '1';
-        }, 150);
-    }
-
-    function prevSlide() {
-        currentIndex = (currentIndex > 0) ? currentIndex - 1 : images.length - 1;
-        updateSlide();
-    }
-
-    function nextSlide() {
-        currentIndex = (currentIndex < images.length - 1) ? currentIndex + 1 : 0;
-        updateSlide();
-    }
-    
-    // Auto-advance every 5 seconds
-    setInterval(nextSlide, 5000);
-</script>
-
-
-
-
-
-<script>
-    const images = [
-        "https://ik.imagekit.io/logicsync/tr:w-2000/photo%202.JPG",
-        "https://ik.imagekit.io/logicsync/IMG.112.jpg?updatedAt=1780925347803",
-        "https://ik.imagekit.io/logicsync/0eba3533-9e9f-4609-b167-5d137b160e3e.jpg",
-        "https://ik.imagekit.io/logicsync/ce247119-0ef3-483f-90f3-a0275ec101d1.jpg?updatedAt=1780925325760"
-    ];
-    let currentIndex = 0;
-    const heroImg = document.getElementById('hero-slider-img');
-
-    function updateSlide() {
-        heroImg.style.opacity = '0.6';
-        setTimeout(() => {
-            heroImg.src = images[currentIndex];
-            heroImg.style.opacity = '1';
-        }, 150);
-    }
-
-    function prevSlide() {
-        currentIndex = (currentIndex > 0) ? currentIndex - 1 : images.length - 1;
-        updateSlide();
-    }
-
-    function nextSlide() {
-        currentIndex = (currentIndex < images.length - 1) ? currentIndex + 1 : 0;
-        updateSlide();
-    }
-    
-    // Auto-advance every 5 seconds
-    setInterval(nextSlide, 5000);
-</script>
-
-
-
-
-
-<script>
-    const images = [
-        "https://ik.imagekit.io/logicsync/tr:w-2000/photo%202.JPG",
-        "https://ik.imagekit.io/logicsync/IMG.112.jpg?updatedAt=1780925347803",
-        "https://ik.imagekit.io/logicsync/0eba3533-9e9f-4609-b167-5d137b160e3e.jpg",
-        "https://ik.imagekit.io/logicsync/ce247119-0ef3-483f-90f3-a0275ec101d1.jpg?updatedAt=1780925325760"
-    ];
-    let currentIndex = 0;
-    const heroImg = document.getElementById('hero-slider-img');
-
-    function updateSlide() {
-        heroImg.style.opacity = '0.6';
-        setTimeout(() => {
-            heroImg.src = images[currentIndex];
-            heroImg.style.opacity = '1';
-        }, 150);
-    }
-
-    function prevSlide() {
-        currentIndex = (currentIndex > 0) ? currentIndex - 1 : images.length - 1;
-        updateSlide();
-    }
-
-    function nextSlide() {
-        currentIndex = (currentIndex < images.length - 1) ? currentIndex + 1 : 0;
-        updateSlide();
-    }
-    
-    // Auto-advance every 5 seconds
-    setInterval(nextSlide, 5000);
-</script>
-
-
-
-
-
-<script>
-    const images = [
-        "https://ik.imagekit.io/logicsync/tr:w-2000/photo%202.JPG",
-        "https://ik.imagekit.io/logicsync/IMG.112.jpg?updatedAt=1780925347803",
-        "https://ik.imagekit.io/logicsync/0eba3533-9e9f-4609-b167-5d137b160e3e.jpg",
-        "https://ik.imagekit.io/logicsync/ce247119-0ef3-483f-90f3-a0275ec101d1.jpg?updatedAt=1780925325760"
-    ];
-    let currentIndex = 0;
-    const heroImg = document.getElementById('hero-slider-img');
-
-    function updateSlide() {
-        heroImg.style.opacity = '0.6';
-        setTimeout(() => {
-            heroImg.src = images[currentIndex];
-            heroImg.style.opacity = '1';
-        }, 150);
-    }
-
-    function prevSlide() {
-        currentIndex = (currentIndex > 0) ? currentIndex - 1 : images.length - 1;
-        updateSlide();
-    }
-
-    function nextSlide() {
-        currentIndex = (currentIndex < images.length - 1) ? currentIndex + 1 : 0;
-        updateSlide();
-    }
-    
-    // Auto-advance every 5 seconds
-    setInterval(nextSlide, 5000);
-</script>
-
-
-
-
-
-<script>
-    const images = [
-        "https://ik.imagekit.io/logicsync/tr:w-2000/photo%202.JPG",
-        "https://ik.imagekit.io/logicsync/IMG.112.jpg?updatedAt=1780925347803",
-        "https://ik.imagekit.io/logicsync/0eba3533-9e9f-4609-b167-5d137b160e3e.jpg",
-        "https://ik.imagekit.io/logicsync/ce247119-0ef3-483f-90f3-a0275ec101d1.jpg?updatedAt=1780925325760"
-    ];
-    let currentIndex = 0;
-    const heroImg = document.getElementById('hero-slider-img');
-
-    function updateSlide() {
-        heroImg.style.opacity = '0.6';
-        setTimeout(() => {
-            heroImg.src = images[currentIndex];
-            heroImg.style.opacity = '1';
-        }, 150);
-    }
-
-    function prevSlide() {
-        currentIndex = (currentIndex > 0) ? currentIndex - 1 : images.length - 1;
-        updateSlide();
-    }
-
-    function nextSlide() {
-        currentIndex = (currentIndex < images.length - 1) ? currentIndex + 1 : 0;
-        updateSlide();
-    }
-    
-    // Auto-advance every 5 seconds
-    setInterval(nextSlide, 5000);
-</script>
-
-
-
-
-
-<script>
-    const images = [
-        "https://ik.imagekit.io/logicsync/tr:w-2000/photo%202.JPG",
-        "https://ik.imagekit.io/logicsync/IMG.112.jpg?updatedAt=1780925347803",
-        "https://ik.imagekit.io/logicsync/0eba3533-9e9f-4609-b167-5d137b160e3e.jpg",
-        "https://ik.imagekit.io/logicsync/ce247119-0ef3-483f-90f3-a0275ec101d1.jpg?updatedAt=1780925325760"
-    ];
-    let currentIndex = 0;
-    const heroImg = document.getElementById('hero-slider-img');
-
-    function updateSlide() {
-        heroImg.style.opacity = '0.6';
-        setTimeout(() => {
-            heroImg.src = images[currentIndex];
-            heroImg.style.opacity = '1';
-        }, 150);
-    }
-
-    function prevSlide() {
-        currentIndex = (currentIndex > 0) ? currentIndex - 1 : images.length - 1;
-        updateSlide();
-    }
-
-    function nextSlide() {
-        currentIndex = (currentIndex < images.length - 1) ? currentIndex + 1 : 0;
-        updateSlide();
-    }
-    
-    // Auto-advance every 5 seconds
-    setInterval(nextSlide, 5000);
-</script>
-
-
-
-
-
-<script>
-    const images = [
-        "https://ik.imagekit.io/logicsync/tr:w-2000/photo%202.JPG",
-        "https://ik.imagekit.io/logicsync/IMG.112.jpg?updatedAt=1780925347803",
-        "https://ik.imagekit.io/logicsync/0eba3533-9e9f-4609-b167-5d137b160e3e.jpg",
-        "https://ik.imagekit.io/logicsync/ce247119-0ef3-483f-90f3-a0275ec101d1.jpg?updatedAt=1780925325760"
-    ];
-    let currentIndex = 0;
-    const heroImg = document.getElementById('hero-slider-img');
-
-    function updateSlide() {
-        heroImg.style.opacity = '0.6';
-        setTimeout(() => {
-            heroImg.src = images[currentIndex];
-            heroImg.style.opacity = '1';
-        }, 150);
-    }
-
-    function prevSlide() {
-        currentIndex = (currentIndex > 0) ? currentIndex - 1 : images.length - 1;
-        updateSlide();
-    }
-
-    function nextSlide() {
-        currentIndex = (currentIndex < images.length - 1) ? currentIndex + 1 : 0;
-        updateSlide();
-    }
-    
-    // Auto-advance every 5 seconds
-    setInterval(nextSlide, 5000);
-</script>
-
-
-
-
-
-<script>
-    const images = [
-        "https://ik.imagekit.io/logicsync/tr:w-2000/photo%202.JPG",
-        "https://ik.imagekit.io/logicsync/IMG.112.jpg?updatedAt=1780925347803",
-        "https://ik.imagekit.io/logicsync/0eba3533-9e9f-4609-b167-5d137b160e3e.jpg",
-        "https://ik.imagekit.io/logicsync/ce247119-0ef3-483f-90f3-a0275ec101d1.jpg?updatedAt=1780925325760"
-    ];
-    let currentIndex = 0;
-    const heroImg = document.getElementById('hero-slider-img');
-
-    function updateSlide() {
-        heroImg.style.opacity = '0.6';
-        setTimeout(() => {
-            heroImg.src = images[currentIndex];
-            heroImg.style.opacity = '1';
-        }, 150);
-    }
-
-    function prevSlide() {
-        currentIndex = (currentIndex > 0) ? currentIndex - 1 : images.length - 1;
-        updateSlide();
-    }
-
-    function nextSlide() {
-        currentIndex = (currentIndex < images.length - 1) ? currentIndex + 1 : 0;
-        updateSlide();
-    }
-    
-    // Auto-advance every 5 seconds
-    setInterval(nextSlide, 5000);
-</script>
-
-
-
-
-
-<script>
-    const images = [
-        "https://ik.imagekit.io/logicsync/tr:w-2000/photo%202.JPG",
-        "https://ik.imagekit.io/logicsync/IMG.112.jpg?updatedAt=1780925347803",
-        "https://ik.imagekit.io/logicsync/0eba3533-9e9f-4609-b167-5d137b160e3e.jpg",
-        "https://ik.imagekit.io/logicsync/ce247119-0ef3-483f-90f3-a0275ec101d1.jpg?updatedAt=1780925325760"
-    ];
-    let currentIndex = 0;
-    const heroImg = document.getElementById('hero-slider-img');
-
-    function updateSlide() {
-        heroImg.style.opacity = '0.6';
-        setTimeout(() => {
-            heroImg.src = images[currentIndex];
-            heroImg.style.opacity = '1';
-        }, 150);
-    }
-
-    function prevSlide() {
-        currentIndex = (currentIndex > 0) ? currentIndex - 1 : images.length - 1;
-        updateSlide();
-    }
-
-    function nextSlide() {
-        currentIndex = (currentIndex < images.length - 1) ? currentIndex + 1 : 0;
-        updateSlide();
-    }
-    
-    // Auto-advance every 5 seconds
-    setInterval(nextSlide, 5000);
-</script>
-
-
-
-
-
-<script>
-    const images = [
-        "https://ik.imagekit.io/logicsync/tr:w-2000/photo%202.JPG",
-        "https://ik.imagekit.io/logicsync/IMG.112.jpg?updatedAt=1780925347803",
-        "https://ik.imagekit.io/logicsync/0eba3533-9e9f-4609-b167-5d137b160e3e.jpg",
-        "https://ik.imagekit.io/logicsync/ce247119-0ef3-483f-90f3-a0275ec101d1.jpg?updatedAt=1780925325760"
-    ];
-    let currentIndex = 0;
-    const heroImg = document.getElementById('hero-slider-img');
-
-    function updateSlide() {
-        heroImg.style.opacity = '0.6';
-        setTimeout(() => {
-            heroImg.src = images[currentIndex];
-            heroImg.style.opacity = '1';
-        }, 150);
-    }
-
-    function prevSlide() {
-        currentIndex = (currentIndex > 0) ? currentIndex - 1 : images.length - 1;
-        updateSlide();
-    }
-
-    function nextSlide() {
-        currentIndex = (currentIndex < images.length - 1) ? currentIndex + 1 : 0;
-        updateSlide();
-    }
-    
-    // Auto-advance every 5 seconds
-    setInterval(nextSlide, 5000);
-</script>
-
-
-
-
-
-<script>
-    const images = [
-        "https://ik.imagekit.io/logicsync/tr:w-2000/photo%202.JPG",
-        "https://ik.imagekit.io/logicsync/IMG.112.jpg?updatedAt=1780925347803",
-        "https://ik.imagekit.io/logicsync/0eba3533-9e9f-4609-b167-5d137b160e3e.jpg",
-        "https://ik.imagekit.io/logicsync/ce247119-0ef3-483f-90f3-a0275ec101d1.jpg?updatedAt=1780925325760"
-    ];
-    let currentIndex = 0;
-    const heroImg = document.getElementById('hero-slider-img');
-
-    function updateSlide() {
-        heroImg.style.opacity = '0.6';
-        setTimeout(() => {
-            heroImg.src = images[currentIndex];
-            heroImg.style.opacity = '1';
-        }, 150);
-    }
-
-    function prevSlide() {
-        currentIndex = (currentIndex > 0) ? currentIndex - 1 : images.length - 1;
-        updateSlide();
-    }
-
-    function nextSlide() {
-        currentIndex = (currentIndex < images.length - 1) ? currentIndex + 1 : 0;
-        updateSlide();
-    }
-    
-    // Auto-advance every 5 seconds
-    setInterval(nextSlide, 5000);
-</script>
-
-
-
-
-
-<script>
-    const images = [
-        "https://ik.imagekit.io/logicsync/tr:w-2000/photo%202.JPG",
-        "https://ik.imagekit.io/logicsync/IMG.112.jpg?updatedAt=1780925347803",
-        "https://ik.imagekit.io/logicsync/0eba3533-9e9f-4609-b167-5d137b160e3e.jpg",
-        "https://ik.imagekit.io/logicsync/ce247119-0ef3-483f-90f3-a0275ec101d1.jpg?updatedAt=1780925325760"
-    ];
-    let currentIndex = 0;
-    const heroImg = document.getElementById('hero-slider-img');
-
-    function updateSlide() {
-        heroImg.style.opacity = '0.6';
-        setTimeout(() => {
-            heroImg.src = images[currentIndex];
-            heroImg.style.opacity = '1';
-        }, 150);
-    }
-
-    function prevSlide() {
-        currentIndex = (currentIndex > 0) ? currentIndex - 1 : images.length - 1;
-        updateSlide();
-    }
-
-    function nextSlide() {
-        currentIndex = (currentIndex < images.length - 1) ? currentIndex + 1 : 0;
-        updateSlide();
-    }
-    
-    // Auto-advance every 5 seconds
-    setInterval(nextSlide, 5000);
-</script>
-
-
-
-
-
-<script>
-    const images = [
-        "https://ik.imagekit.io/logicsync/tr:w-2000/photo%202.JPG",
-        "https://ik.imagekit.io/logicsync/IMG.112.jpg?updatedAt=1780925347803",
-        "https://ik.imagekit.io/logicsync/0eba3533-9e9f-4609-b167-5d137b160e3e.jpg",
-        "https://ik.imagekit.io/logicsync/ce247119-0ef3-483f-90f3-a0275ec101d1.jpg?updatedAt=1780925325760"
-    ];
-    let currentIndex = 0;
-    const heroImg = document.getElementById('hero-slider-img');
-
-    function updateSlide() {
-        heroImg.style.opacity = '0.6';
-        setTimeout(() => {
-            heroImg.src = images[currentIndex];
-            heroImg.style.opacity = '1';
-        }, 150);
-    }
-
-    function prevSlide() {
-        currentIndex = (currentIndex > 0) ? currentIndex - 1 : images.length - 1;
-        updateSlide();
-    }
-
-    function nextSlide() {
-        currentIndex = (currentIndex < images.length - 1) ? currentIndex + 1 : 0;
-        updateSlide();
-    }
-    
-    // Auto-advance every 5 seconds
-    setInterval(nextSlide, 5000);
-</script>
-
-
-
-
-
-<script>
-    const images = [
-        "https://ik.imagekit.io/logicsync/tr:w-2000/photo%202.JPG",
-        "https://ik.imagekit.io/logicsync/IMG.112.jpg?updatedAt=1780925347803",
-        "https://ik.imagekit.io/logicsync/0eba3533-9e9f-4609-b167-5d137b160e3e.jpg",
-        "https://ik.imagekit.io/logicsync/ce247119-0ef3-483f-90f3-a0275ec101d1.jpg?updatedAt=1780925325760"
-    ];
-    let currentIndex = 0;
-    const heroImg = document.getElementById('hero-slider-img');
-
-    function updateSlide() {
-        heroImg.style.opacity = '0.6';
-        setTimeout(() => {
-            heroImg.src = images[currentIndex];
-            heroImg.style.opacity = '1';
-        }, 150);
-    }
-
-    function prevSlide() {
-        currentIndex = (currentIndex > 0) ? currentIndex - 1 : images.length - 1;
-        updateSlide();
-    }
-
-    function nextSlide() {
-        currentIndex = (currentIndex < images.length - 1) ? currentIndex + 1 : 0;
-        updateSlide();
-    }
-    
-    // Auto-advance every 5 seconds
-    setInterval(nextSlide, 5000);
-</script>
-
-
-
-
-
-<script>
-    const images = [
-        "https://ik.imagekit.io/logicsync/tr:w-2000/photo%202.JPG",
-        "https://ik.imagekit.io/logicsync/IMG.112.jpg?updatedAt=1780925347803",
-        "https://ik.imagekit.io/logicsync/0eba3533-9e9f-4609-b167-5d137b160e3e.jpg",
-        "https://ik.imagekit.io/logicsync/ce247119-0ef3-483f-90f3-a0275ec101d1.jpg?updatedAt=1780925325760"
-    ];
-    let currentIndex = 0;
-    const heroImg = document.getElementById('hero-slider-img');
-
-    function updateSlide() {
-        heroImg.style.opacity = '0.6';
-        setTimeout(() => {
-            heroImg.src = images[currentIndex];
-            heroImg.style.opacity = '1';
-        }, 150);
-    }
-
-    function prevSlide() {
-        currentIndex = (currentIndex > 0) ? currentIndex - 1 : images.length - 1;
-        updateSlide();
-    }
-
-    function nextSlide() {
-        currentIndex = (currentIndex < images.length - 1) ? currentIndex + 1 : 0;
-        updateSlide();
-    }
-    
-    // Auto-advance every 5 seconds
-    setInterval(nextSlide, 5000);
-</script>
-
-
-
-
-
-<script>
-    const images = [
-        "https://ik.imagekit.io/logicsync/tr:w-2000/photo%202.JPG",
-        "https://ik.imagekit.io/logicsync/IMG.112.jpg?updatedAt=1780925347803",
-        "https://ik.imagekit.io/logicsync/0eba3533-9e9f-4609-b167-5d137b160e3e.jpg",
-        "https://ik.imagekit.io/logicsync/ce247119-0ef3-483f-90f3-a0275ec101d1.jpg?updatedAt=1780925325760"
-    ];
-    let currentIndex = 0;
-    const heroImg = document.getElementById('hero-slider-img');
-
-    function updateSlide() {
-        heroImg.style.opacity = '0.6';
-        setTimeout(() => {
-            heroImg.src = images[currentIndex];
-            heroImg.style.opacity = '1';
-        }, 150);
-    }
-
-    function prevSlide() {
-        currentIndex = (currentIndex > 0) ? currentIndex - 1 : images.length - 1;
-        updateSlide();
-    }
-
-    function nextSlide() {
-        currentIndex = (currentIndex < images.length - 1) ? currentIndex + 1 : 0;
-        updateSlide();
-    }
-    
-    // Auto-advance every 5 seconds
-    setInterval(nextSlide, 5000);
-</script>
-
-
-
-
-
-<script>
-    const images = [
-        "https://ik.imagekit.io/logicsync/tr:w-2000/photo%202.JPG",
-        "https://ik.imagekit.io/logicsync/IMG.112.jpg?updatedAt=1780925347803",
-        "https://ik.imagekit.io/logicsync/0eba3533-9e9f-4609-b167-5d137b160e3e.jpg",
-        "https://ik.imagekit.io/logicsync/ce247119-0ef3-483f-90f3-a0275ec101d1.jpg?updatedAt=1780925325760"
-    ];
-    let currentIndex = 0;
-    const heroImg = document.getElementById('hero-slider-img');
-
-    function updateSlide() {
-        heroImg.style.opacity = '0.6';
-        setTimeout(() => {
-            heroImg.src = images[currentIndex];
-            heroImg.style.opacity = '1';
-        }, 150);
-    }
-
-    function prevSlide() {
-        currentIndex = (currentIndex > 0) ? currentIndex - 1 : images.length - 1;
-        updateSlide();
-    }
-
-    function nextSlide() {
-        currentIndex = (currentIndex < images.length - 1) ? currentIndex + 1 : 0;
-        updateSlide();
-    }
-    
-    // Auto-advance every 5 seconds
-    setInterval(nextSlide, 5000);
-</script>
-
-
-
-
-
-<script>
-    const images = [
-        "https://ik.imagekit.io/logicsync/tr:w-2000/photo%202.JPG",
-        "https://ik.imagekit.io/logicsync/IMG.112.jpg?updatedAt=1780925347803",
-        "https://ik.imagekit.io/logicsync/0eba3533-9e9f-4609-b167-5d137b160e3e.jpg",
-        "https://ik.imagekit.io/logicsync/ce247119-0ef3-483f-90f3-a0275ec101d1.jpg?updatedAt=1780925325760"
-    ];
-    let currentIndex = 0;
-    const heroImg = document.getElementById('hero-slider-img');
-
-    function updateSlide() {
-        heroImg.style.opacity = '0.6';
-        setTimeout(() => {
-            heroImg.src = images[currentIndex];
-            heroImg.style.opacity = '1';
-        }, 150);
-    }
-
-    function prevSlide() {
-        currentIndex = (currentIndex > 0) ? currentIndex - 1 : images.length - 1;
-        updateSlide();
-    }
-
-    function nextSlide() {
-        currentIndex = (currentIndex < images.length - 1) ? currentIndex + 1 : 0;
-        updateSlide();
-    }
-    
-    // Auto-advance every 5 seconds
-    setInterval(nextSlide, 5000);
-</script>
-
-
-
-
-
-<script>
-    const images = [
-        "https://ik.imagekit.io/logicsync/tr:w-2000/photo%202.JPG",
-        "https://ik.imagekit.io/logicsync/IMG.112.jpg?updatedAt=1780925347803",
-        "https://ik.imagekit.io/logicsync/0eba3533-9e9f-4609-b167-5d137b160e3e.jpg",
-        "https://ik.imagekit.io/logicsync/ce247119-0ef3-483f-90f3-a0275ec101d1.jpg?updatedAt=1780925325760"
-    ];
-    let currentIndex = 0;
-    const heroImg = document.getElementById('hero-slider-img');
-
-    function updateSlide() {
-        heroImg.style.opacity = '0.6';
-        setTimeout(() => {
-            heroImg.src = images[currentIndex];
-            heroImg.style.opacity = '1';
-        }, 150);
-    }
-
-    function prevSlide() {
-        currentIndex = (currentIndex > 0) ? currentIndex - 1 : images.length - 1;
-        updateSlide();
-    }
-
-    function nextSlide() {
-        currentIndex = (currentIndex < images.length - 1) ? currentIndex + 1 : 0;
-        updateSlide();
-    }
-    
-    // Auto-advance every 5 seconds
-    setInterval(nextSlide, 5000);
-</script>
-
-
-
-
-
-<script>
-    const images = [
-        "https://ik.imagekit.io/logicsync/tr:w-2000/photo%202.JPG",
-        "https://ik.imagekit.io/logicsync/IMG.112.jpg?updatedAt=1780925347803",
-        "https://ik.imagekit.io/logicsync/0eba3533-9e9f-4609-b167-5d137b160e3e.jpg",
-        "https://ik.imagekit.io/logicsync/ce247119-0ef3-483f-90f3-a0275ec101d1.jpg?updatedAt=1780925325760"
-    ];
-    let currentIndex = 0;
-    const heroImg = document.getElementById('hero-slider-img');
-
-    function updateSlide() {
-        heroImg.style.opacity = '0.6';
-        setTimeout(() => {
-            heroImg.src = images[currentIndex];
-            heroImg.style.opacity = '1';
-        }, 150);
-    }
-
-    function prevSlide() {
-        currentIndex = (currentIndex > 0) ? currentIndex - 1 : images.length - 1;
-        updateSlide();
-    }
-
-    function nextSlide() {
-        currentIndex = (currentIndex < images.length - 1) ? currentIndex + 1 : 0;
-        updateSlide();
-    }
-    
-    // Auto-advance every 5 seconds
-    setInterval(nextSlide, 5000);
-</script>
-
-
-
-
-
-<script>
-    const images = [
-        "https://ik.imagekit.io/logicsync/tr:w-2000/photo%202.JPG",
-        "https://ik.imagekit.io/logicsync/IMG.112.jpg?updatedAt=1780925347803",
-        "https://ik.imagekit.io/logicsync/0eba3533-9e9f-4609-b167-5d137b160e3e.jpg",
-        "https://ik.imagekit.io/logicsync/ce247119-0ef3-483f-90f3-a0275ec101d1.jpg?updatedAt=1780925325760"
-    ];
-    let currentIndex = 0;
-    const heroImg = document.getElementById('hero-slider-img');
-
-    function updateSlide() {
-        heroImg.style.opacity = '0.6';
-        setTimeout(() => {
-            heroImg.src = images[currentIndex];
-            heroImg.style.opacity = '1';
-        }, 150);
-    }
-
-    function prevSlide() {
-        currentIndex = (currentIndex > 0) ? currentIndex - 1 : images.length - 1;
-        updateSlide();
-    }
-
-    function nextSlide() {
-        currentIndex = (currentIndex < images.length - 1) ? currentIndex + 1 : 0;
-        updateSlide();
-    }
-    
-    // Auto-advance every 5 seconds
-    setInterval(nextSlide, 5000);
-</script>
-
-
-
-
-
-<script>
-    const images = [
-        "https://ik.imagekit.io/logicsync/tr:w-2000/photo%202.JPG",
-        "https://ik.imagekit.io/logicsync/IMG.112.jpg?updatedAt=1780925347803",
-        "https://ik.imagekit.io/logicsync/0eba3533-9e9f-4609-b167-5d137b160e3e.jpg",
-        "https://ik.imagekit.io/logicsync/ce247119-0ef3-483f-90f3-a0275ec101d1.jpg?updatedAt=1780925325760"
-    ];
-    let currentIndex = 0;
-    const heroImg = document.getElementById('hero-slider-img');
-
-    function updateSlide() {
-        heroImg.style.opacity = '0.6';
-        setTimeout(() => {
-            heroImg.src = images[currentIndex];
-            heroImg.style.opacity = '1';
-        }, 150);
-    }
-
-    function prevSlide() {
-        currentIndex = (currentIndex > 0) ? currentIndex - 1 : images.length - 1;
-        updateSlide();
-    }
-
-    function nextSlide() {
-        currentIndex = (currentIndex < images.length - 1) ? currentIndex + 1 : 0;
-        updateSlide();
-    }
-    
-    // Auto-advance every 5 seconds
-    setInterval(nextSlide, 5000);
-</script>
-
-
-
-
-
-<script>
-    const images = [
-        "https://ik.imagekit.io/logicsync/tr:w-2000/photo%202.JPG",
-        "https://ik.imagekit.io/logicsync/IMG.112.jpg?updatedAt=1780925347803",
-        "https://ik.imagekit.io/logicsync/0eba3533-9e9f-4609-b167-5d137b160e3e.jpg",
-        "https://ik.imagekit.io/logicsync/ce247119-0ef3-483f-90f3-a0275ec101d1.jpg?updatedAt=1780925325760"
-    ];
-    let currentIndex = 0;
-    const heroImg = document.getElementById('hero-slider-img');
-
-    function updateSlide() {
-        heroImg.style.opacity = '0.6';
-        setTimeout(() => {
-            heroImg.src = images[currentIndex];
-            heroImg.style.opacity = '1';
-        }, 150);
-    }
-
-    function prevSlide() {
-        currentIndex = (currentIndex > 0) ? currentIndex - 1 : images.length - 1;
-        updateSlide();
-    }
-
-    function nextSlide() {
-        currentIndex = (currentIndex < images.length - 1) ? currentIndex + 1 : 0;
-        updateSlide();
-    }
-    
-    // Auto-advance every 5 seconds
-    setInterval(nextSlide, 5000);
-</script>
-
-
-
-
-
-<script>
-    const images = [
-        "https://ik.imagekit.io/logicsync/tr:w-2000/photo%202.JPG",
-        "https://ik.imagekit.io/logicsync/IMG.112.jpg?updatedAt=1780925347803",
-        "https://ik.imagekit.io/logicsync/0eba3533-9e9f-4609-b167-5d137b160e3e.jpg",
-        "https://ik.imagekit.io/logicsync/ce247119-0ef3-483f-90f3-a0275ec101d1.jpg?updatedAt=1780925325760"
-    ];
-    let currentIndex = 0;
-    const heroImg = document.getElementById('hero-slider-img');
-
-    function updateSlide() {
-        heroImg.style.opacity = '0.6';
-        setTimeout(() => {
-            heroImg.src = images[currentIndex];
-            heroImg.style.opacity = '1';
-        }, 150);
-    }
-
-    function prevSlide() {
-        currentIndex = (currentIndex > 0) ? currentIndex - 1 : images.length - 1;
-        updateSlide();
-    }
-
-    function nextSlide() {
-        currentIndex = (currentIndex < images.length - 1) ? currentIndex + 1 : 0;
-        updateSlide();
-    }
-    
-    // Auto-advance every 5 seconds
-    setInterval(nextSlide, 5000);
-</script>
-
-
-
-
-
-<script>
-    const images = [
-        "https://ik.imagekit.io/logicsync/tr:w-2000/photo%202.JPG",
-        "https://ik.imagekit.io/logicsync/IMG.112.jpg?updatedAt=1780925347803",
-        "https://ik.imagekit.io/logicsync/0eba3533-9e9f-4609-b167-5d137b160e3e.jpg",
-        "https://ik.imagekit.io/logicsync/ce247119-0ef3-483f-90f3-a0275ec101d1.jpg?updatedAt=1780925325760"
-    ];
-    let currentIndex = 0;
-    const heroImg = document.getElementById('hero-slider-img');
-
-    function updateSlide() {
-        heroImg.style.opacity = '0.6';
-        setTimeout(() => {
-            heroImg.src = images[currentIndex];
-            heroImg.style.opacity = '1';
-        }, 150);
-    }
-
-    function prevSlide() {
-        currentIndex = (currentIndex > 0) ? currentIndex - 1 : images.length - 1;
-        updateSlide();
-    }
-
-    function nextSlide() {
-        currentIndex = (currentIndex < images.length - 1) ? currentIndex + 1 : 0;
-        updateSlide();
-    }
-    
-    // Auto-advance every 5 seconds
-    setInterval(nextSlide, 5000);
-</script>
-
-
-
-
-
-<script>
-    const images = [
-        "https://ik.imagekit.io/logicsync/tr:w-2000/photo%202.JPG",
-        "https://ik.imagekit.io/logicsync/IMG.112.jpg?updatedAt=1780925347803",
-        "https://ik.imagekit.io/logicsync/0eba3533-9e9f-4609-b167-5d137b160e3e.jpg",
-        "https://ik.imagekit.io/logicsync/ce247119-0ef3-483f-90f3-a0275ec101d1.jpg?updatedAt=1780925325760"
-    ];
-    let currentIndex = 0;
-    const heroImg = document.getElementById('hero-slider-img');
-
-    function updateSlide() {
-        heroImg.style.opacity = '0.6';
-        setTimeout(() => {
-            heroImg.src = images[currentIndex];
-            heroImg.style.opacity = '1';
-        }, 150);
-    }
-
-    function prevSlide() {
-        currentIndex = (currentIndex > 0) ? currentIndex - 1 : images.length - 1;
-        updateSlide();
-    }
-
-    function nextSlide() {
-        currentIndex = (currentIndex < images.length - 1) ? currentIndex + 1 : 0;
-        updateSlide();
-    }
-    
-    // Auto-advance every 5 seconds
-    setInterval(nextSlide, 5000);
-</script>
-
-
-
-
-
-<script>
-    const images = [
-        "https://ik.imagekit.io/logicsync/tr:w-2000/photo%202.JPG",
-        "https://ik.imagekit.io/logicsync/IMG.112.jpg?updatedAt=1780925347803",
-        "https://ik.imagekit.io/logicsync/0eba3533-9e9f-4609-b167-5d137b160e3e.jpg",
-        "https://ik.imagekit.io/logicsync/ce247119-0ef3-483f-90f3-a0275ec101d1.jpg?updatedAt=1780925325760"
-    ];
-    let currentIndex = 0;
-    const heroImg = document.getElementById('hero-slider-img');
-
-    function updateSlide() {
-        heroImg.style.opacity = '0.6';
-        setTimeout(() => {
-            heroImg.src = images[currentIndex];
-            heroImg.style.opacity = '1';
-        }, 150);
-    }
-
-    function prevSlide() {
-        currentIndex = (currentIndex > 0) ? currentIndex - 1 : images.length - 1;
-        updateSlide();
-    }
-
-    function nextSlide() {
-        currentIndex = (currentIndex < images.length - 1) ? currentIndex + 1 : 0;
-        updateSlide();
-    }
-    
-    // Auto-advance every 5 seconds
-    setInterval(nextSlide, 5000);
-</script>
-
-
-
-
-
-<script>
-    const images = [
-        "https://ik.imagekit.io/logicsync/tr:w-2000/photo%202.JPG",
-        "https://ik.imagekit.io/logicsync/IMG.112.jpg?updatedAt=1780925347803",
-        "https://ik.imagekit.io/logicsync/0eba3533-9e9f-4609-b167-5d137b160e3e.jpg",
-        "https://ik.imagekit.io/logicsync/ce247119-0ef3-483f-90f3-a0275ec101d1.jpg?updatedAt=1780925325760"
-    ];
-    let currentIndex = 0;
-    const heroImg = document.getElementById('hero-slider-img');
-
-    function updateSlide() {
-        heroImg.style.opacity = '0.6';
-        setTimeout(() => {
-            heroImg.src = images[currentIndex];
-            heroImg.style.opacity = '1';
-        }, 150);
-    }
-
-    function prevSlide() {
-        currentIndex = (currentIndex > 0) ? currentIndex - 1 : images.length - 1;
-        updateSlide();
-    }
-
-    function nextSlide() {
-        currentIndex = (currentIndex < images.length - 1) ? currentIndex + 1 : 0;
-        updateSlide();
-    }
-    
-    // Auto-advance every 5 seconds
-    setInterval(nextSlide, 5000);
-</script>
-
-
-
-
-
-<script>
-    const images = [
-        "https://ik.imagekit.io/logicsync/tr:w-2000/photo%202.JPG",
-        "https://ik.imagekit.io/logicsync/IMG.112.jpg?updatedAt=1780925347803",
-        "https://ik.imagekit.io/logicsync/0eba3533-9e9f-4609-b167-5d137b160e3e.jpg",
-        "https://ik.imagekit.io/logicsync/ce247119-0ef3-483f-90f3-a0275ec101d1.jpg?updatedAt=1780925325760"
-    ];
-    let currentIndex = 0;
-    const heroImg = document.getElementById('hero-slider-img');
-
-    function updateSlide() {
-        heroImg.style.opacity = '0.6';
-        setTimeout(() => {
-            heroImg.src = images[currentIndex];
-            heroImg.style.opacity = '1';
-        }, 150);
-    }
-
-    function prevSlide() {
-        currentIndex = (currentIndex > 0) ? currentIndex - 1 : images.length - 1;
-        updateSlide();
-    }
-
-    function nextSlide() {
-        currentIndex = (currentIndex < images.length - 1) ? currentIndex + 1 : 0;
-        updateSlide();
-    }
-    
-    // Auto-advance every 5 seconds
-    setInterval(nextSlide, 5000);
-</script>
-
-
-
-
-
-<script>
-    const images = [
-        "https://ik.imagekit.io/logicsync/tr:w-2000/photo%202.JPG",
-        "https://ik.imagekit.io/logicsync/IMG.112.jpg?updatedAt=1780925347803",
-        "https://ik.imagekit.io/logicsync/0eba3533-9e9f-4609-b167-5d137b160e3e.jpg",
-        "https://ik.imagekit.io/logicsync/ce247119-0ef3-483f-90f3-a0275ec101d1.jpg?updatedAt=1780925325760"
-    ];
-    let currentIndex = 0;
-    const heroImg = document.getElementById('hero-slider-img');
-
-    function updateSlide() {
-        heroImg.style.opacity = '0.6';
-        setTimeout(() => {
-            heroImg.src = images[currentIndex];
-            heroImg.style.opacity = '1';
-        }, 150);
-    }
-
-    function prevSlide() {
-        currentIndex = (currentIndex > 0) ? currentIndex - 1 : images.length - 1;
-        updateSlide();
-    }
-
-    function nextSlide() {
-        currentIndex = (currentIndex < images.length - 1) ? currentIndex + 1 : 0;
-        updateSlide();
-    }
-    
-    // Auto-advance every 5 seconds
-    setInterval(nextSlide, 5000);
-</script>
-
-
-
-
-
-<script>
-    const images = [
-        "https://ik.imagekit.io/logicsync/tr:w-2000/photo%202.JPG",
-        "https://ik.imagekit.io/logicsync/IMG.112.jpg?updatedAt=1780925347803",
-        "https://ik.imagekit.io/logicsync/0eba3533-9e9f-4609-b167-5d137b160e3e.jpg",
-        "https://ik.imagekit.io/logicsync/ce247119-0ef3-483f-90f3-a0275ec101d1.jpg?updatedAt=1780925325760"
-    ];
-    let currentIndex = 0;
-    const heroImg = document.getElementById('hero-slider-img');
-
-    function updateSlide() {
-        heroImg.style.opacity = '0.6';
-        setTimeout(() => {
-            heroImg.src = images[currentIndex];
-            heroImg.style.opacity = '1';
-        }, 150);
-    }
-
-    function prevSlide() {
-        currentIndex = (currentIndex > 0) ? currentIndex - 1 : images.length - 1;
-        updateSlide();
-    }
-
-    function nextSlide() {
-        currentIndex = (currentIndex < images.length - 1) ? currentIndex + 1 : 0;
-        updateSlide();
-    }
-    
-    // Auto-advance every 5 seconds
-    setInterval(nextSlide, 5000);
-</script>
-
-
-
-
-
-<script>
-    const images = [
-        "https://ik.imagekit.io/logicsync/tr:w-2000/photo%202.JPG",
-        "https://ik.imagekit.io/logicsync/IMG.112.jpg?updatedAt=1780925347803",
-        "https://ik.imagekit.io/logicsync/0eba3533-9e9f-4609-b167-5d137b160e3e.jpg",
-        "https://ik.imagekit.io/logicsync/ce247119-0ef3-483f-90f3-a0275ec101d1.jpg?updatedAt=1780925325760"
-    ];
-    let currentIndex = 0;
-    const heroImg = document.getElementById('hero-slider-img');
-
-    function updateSlide() {
-        heroImg.style.opacity = '0.6';
-        setTimeout(() => {
-            heroImg.src = images[currentIndex];
-            heroImg.style.opacity = '1';
-        }, 150);
-    }
-
-    function prevSlide() {
-        currentIndex = (currentIndex > 0) ? currentIndex - 1 : images.length - 1;
-        updateSlide();
-    }
-
-    function nextSlide() {
-        currentIndex = (currentIndex < images.length - 1) ? currentIndex + 1 : 0;
-        updateSlide();
-    }
-    
-    // Auto-advance every 5 seconds
-    setInterval(nextSlide, 5000);
-</script>
-
-
-
-
-
-<script>
-    const images = [
-        "https://ik.imagekit.io/logicsync/tr:w-2000/photo%202.JPG",
-        "https://ik.imagekit.io/logicsync/IMG.112.jpg?updatedAt=1780925347803",
-        "https://ik.imagekit.io/logicsync/0eba3533-9e9f-4609-b167-5d137b160e3e.jpg",
-        "https://ik.imagekit.io/logicsync/ce247119-0ef3-483f-90f3-a0275ec101d1.jpg?updatedAt=1780925325760"
-    ];
-    let currentIndex = 0;
-    const heroImg = document.getElementById('hero-slider-img');
-
-    function updateSlide() {
-        heroImg.style.opacity = '0.6';
-        setTimeout(() => {
-            heroImg.src = images[currentIndex];
-            heroImg.style.opacity = '1';
-        }, 150);
-    }
-
-    function prevSlide() {
-        currentIndex = (currentIndex > 0) ? currentIndex - 1 : images.length - 1;
-        updateSlide();
-    }
-
-    function nextSlide() {
-        currentIndex = (currentIndex < images.length - 1) ? currentIndex + 1 : 0;
-        updateSlide();
-    }
-    
-    // Auto-advance every 5 seconds
-    setInterval(nextSlide, 5000);
-</script>
-
-
-
-
-
-<script>
-    const images = [
-        "https://ik.imagekit.io/logicsync/tr:w-2000/photo%202.JPG",
-        "https://ik.imagekit.io/logicsync/IMG.112.jpg?updatedAt=1780925347803",
-        "https://ik.imagekit.io/logicsync/0eba3533-9e9f-4609-b167-5d137b160e3e.jpg",
-        "https://ik.imagekit.io/logicsync/ce247119-0ef3-483f-90f3-a0275ec101d1.jpg?updatedAt=1780925325760"
-    ];
-    let currentIndex = 0;
-    const heroImg = document.getElementById('hero-slider-img');
-
-    function updateSlide() {
-        heroImg.style.opacity = '0.6';
-        setTimeout(() => {
-            heroImg.src = images[currentIndex];
-            heroImg.style.opacity = '1';
-        }, 150);
-    }
-
-    function prevSlide() {
-        currentIndex = (currentIndex > 0) ? currentIndex - 1 : images.length - 1;
-        updateSlide();
-    }
-
-    function nextSlide() {
-        currentIndex = (currentIndex < images.length - 1) ? currentIndex + 1 : 0;
-        updateSlide();
-    }
-    
-    // Auto-advance every 5 seconds
-    setInterval(nextSlide, 5000);
-</script>
-
-
-
-
-
-<script>
-    const images = [
-        "https://ik.imagekit.io/logicsync/tr:w-2000/photo%202.JPG",
-        "https://ik.imagekit.io/logicsync/IMG.112.jpg?updatedAt=1780925347803",
-        "https://ik.imagekit.io/logicsync/0eba3533-9e9f-4609-b167-5d137b160e3e.jpg",
-        "https://ik.imagekit.io/logicsync/ce247119-0ef3-483f-90f3-a0275ec101d1.jpg?updatedAt=1780925325760"
-    ];
-    let currentIndex = 0;
-    const heroImg = document.getElementById('hero-slider-img');
-
-    function updateSlide() {
-        heroImg.style.opacity = '0.6';
-        setTimeout(() => {
-            heroImg.src = images[currentIndex];
-            heroImg.style.opacity = '1';
-        }, 150);
-    }
-
-    function prevSlide() {
-        currentIndex = (currentIndex > 0) ? currentIndex - 1 : images.length - 1;
-        updateSlide();
-    }
-
-    function nextSlide() {
-        currentIndex = (currentIndex < images.length - 1) ? currentIndex + 1 : 0;
-        updateSlide();
-    }
-    
-    // Auto-advance every 5 seconds
-    setInterval(nextSlide, 5000);
-</script>
-
-
-
-
-
-<script>
-    const images = [
-        "https://ik.imagekit.io/logicsync/tr:w-2000/photo%202.JPG",
-        "https://ik.imagekit.io/logicsync/IMG.112.jpg?updatedAt=1780925347803",
-        "https://ik.imagekit.io/logicsync/0eba3533-9e9f-4609-b167-5d137b160e3e.jpg",
-        "https://ik.imagekit.io/logicsync/ce247119-0ef3-483f-90f3-a0275ec101d1.jpg?updatedAt=1780925325760"
-    ];
-    let currentIndex = 0;
-    const heroImg = document.getElementById('hero-slider-img');
-
-    function updateSlide() {
-        heroImg.style.opacity = '0.6';
-        setTimeout(() => {
-            heroImg.src = images[currentIndex];
-            heroImg.style.opacity = '1';
-        }, 150);
-    }
-
-    function prevSlide() {
-        currentIndex = (currentIndex > 0) ? currentIndex - 1 : images.length - 1;
-        updateSlide();
-    }
-
-    function nextSlide() {
-        currentIndex = (currentIndex < images.length - 1) ? currentIndex + 1 : 0;
-        updateSlide();
-    }
-    
-    // Auto-advance every 5 seconds
-    setInterval(nextSlide, 5000);
-</script>
-
-
-
-
-
-<script>
-    const images = [
-        "https://ik.imagekit.io/logicsync/tr:w-2000/photo%202.JPG",
-        "https://ik.imagekit.io/logicsync/IMG.112.jpg?updatedAt=1780925347803",
-        "https://ik.imagekit.io/logicsync/0eba3533-9e9f-4609-b167-5d137b160e3e.jpg",
-        "https://ik.imagekit.io/logicsync/ce247119-0ef3-483f-90f3-a0275ec101d1.jpg?updatedAt=1780925325760"
-    ];
-    let currentIndex = 0;
-    const heroImg = document.getElementById('hero-slider-img');
-
-    function updateSlide() {
-        heroImg.style.opacity = '0.6';
-        setTimeout(() => {
-            heroImg.src = images[currentIndex];
-            heroImg.style.opacity = '1';
-        }, 150);
-    }
-
-    function prevSlide() {
-        currentIndex = (currentIndex > 0) ? currentIndex - 1 : images.length - 1;
-        updateSlide();
-    }
-
-    function nextSlide() {
-        currentIndex = (currentIndex < images.length - 1) ? currentIndex + 1 : 0;
-        updateSlide();
-    }
-    
-    // Auto-advance every 5 seconds
-    setInterval(nextSlide, 5000);
-</script>
-
-
-
-
-
-<script>
-    const images = [
-        "https://ik.imagekit.io/logicsync/tr:w-2000/photo%202.JPG",
-        "https://ik.imagekit.io/logicsync/IMG.112.jpg?updatedAt=1780925347803",
-        "https://ik.imagekit.io/logicsync/0eba3533-9e9f-4609-b167-5d137b160e3e.jpg",
-        "https://ik.imagekit.io/logicsync/ce247119-0ef3-483f-90f3-a0275ec101d1.jpg?updatedAt=1780925325760"
-    ];
-    let currentIndex = 0;
-    const heroImg = document.getElementById('hero-slider-img');
-
-    function updateSlide() {
-        heroImg.style.opacity = '0.6';
-        setTimeout(() => {
-            heroImg.src = images[currentIndex];
-            heroImg.style.opacity = '1';
-        }, 150);
-    }
-
-    function prevSlide() {
-        currentIndex = (currentIndex > 0) ? currentIndex - 1 : images.length - 1;
-        updateSlide();
-    }
-
-    function nextSlide() {
-        currentIndex = (currentIndex < images.length - 1) ? currentIndex + 1 : 0;
-        updateSlide();
-    }
-    
-    // Auto-advance every 5 seconds
-    setInterval(nextSlide, 5000);
-</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 <section
@@ -5941,7 +3639,7 @@ header[data-elementor-type="header"] {
 												<img src="https://ik.imagekit.io/logicsync/IMG.112.jpg?updatedAt=1780925347803"
 													class="attachment-medium_large size-medium_large"
 													alt="Game of Thrones Inspired Gothic Wedding in a Polish Castle"
-													style="width: 100% !important; height: 100% !important; top: 0 !important; left: 0 !important; transform: none !important; object-fit: cover; object-position: center 25%;">
+													style="width: 100% !important; height: 100% !important; top: 0 !important; left: 0 !important; transform: none !important; object-fit: cover; object-position: center 10%;">
 											</div>
 
 										</a>
@@ -5955,7 +3653,7 @@ header[data-elementor-type="header"] {
 												<img src="https://ik.imagekit.io/logicsync/0eba3533-9e9f-4609-b167-5d137b160e3e.jpg"
 													class="attachment-medium_large size-medium_large"
 													alt="Phantom of the Opera Inspired Wedding"
-													style="width: 100% !important; height: 100% !important; top: 0 !important; left: 0 !important; transform: scale(1.0) !important; object-fit: cover; object-position: center 30%;">
+													style="width: 100% !important; height: 100% !important; top: 0 !important; left: 0 !important; transform: scale(1.0) !important; object-fit: cover; object-position: center 50%;">
 											</div>
 
 										</a>
@@ -5966,7 +3664,7 @@ header[data-elementor-type="header"] {
 										<a class="elementor-post__thumbnail__link"
 											href="dark-academia-aesthetic-photo-shoot-in-the-castle/index.html">
 											<div class="elementor-portfolio-item__img elementor-post__thumbnail">
-												<img src="https://ik.imagekit.io/logicsync/ce247119-0ef3-483f-90f3-a0275ec101d1.jpg?updatedAt=1780925325760"
+												<img src="https://ik.imagekit.io/logicsync/1.jpg?updatedAt=1781942165881"
 													class="attachment-medium_large size-medium_large"
 													alt="Dark Academia Aesthetic: Photo shoot in the Castle">
 											</div>
@@ -6393,6 +4091,10 @@ videographer: @redvision_wedding" aria-hidden="true" src="data:image/svg+xml;bas
 								</div>
 
 								<style type="text/css">
+									#sb_instagram .sbi_photo {
+										pointer-events: none !important;
+										cursor: default !important;
+									}
 									#sb_instagram .sbi_follow_btn a:hover,
 									#sb_instagram .sbi_follow_btn a:focus {
 										outline: none;
@@ -7142,15 +4844,15 @@ videographer: @redvision_wedding" aria-hidden="true" src="data:image/svg+xml;bas
 			const images = [
 				{
 					src: "https://ik.imagekit.io/logicsync/tr:w-2000/photo%202.JPG",
-					position: "center 80%"
-				},
-				{
-					src: "https://ik.imagekit.io/logicsync/ChatGPT%20Image%20Jun%206,%202026,%2012_24_52%20AM.png?updatedAt=1780685743756",
-					position: "center 10%" // Shifted further down to show more of the top portion
+					position: "center 0%"
 				},
 				{
 					src: "https://ik.imagekit.io/logicsync/CEOL6373.jpg?updatedAt=1780925351324",
 					position: "center 40%" // Shifted down to center the subject
+				},
+				{
+					src: "https://ik.imagekit.io/logicsync/ChatGPT%20Image%20Jun%206,%202026,%2012_24_52%20AM.png?updatedAt=1780685743756",
+					position: "center 10%" // Shifted further down to show more of the top portion
 				},
 				{
 					src: "https://ik.imagekit.io/logicsync/6306256d-0565-46f0-ac45-4ee40cc8221b.jpg",

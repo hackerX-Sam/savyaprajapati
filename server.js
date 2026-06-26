@@ -79,9 +79,15 @@ const server = http.createServer((req, res) => {
 });
 
 function serveFile(filePath, res) {
-  // Determine content type by looking at filename before '@' or '?'
-  let baseFilename = path.basename(filePath).split('@')[0].split('?')[0];
-  let ext = path.extname(baseFilename).toLowerCase();
+  let baseFilename = path.basename(filePath);
+  let cleanName = baseFilename.split('@')[0].split('?')[0];
+  let ext = path.extname(cleanName).toLowerCase();
+  
+  if (baseFilename.match(/\.js(&|\?|$)/)) {
+    ext = '.js';
+  } else if (baseFilename.match(/\.css(&|\?|$)/)) {
+    ext = '.css';
+  }
   
   let contentType = mimeTypes[ext] || 'application/octet-stream';
   

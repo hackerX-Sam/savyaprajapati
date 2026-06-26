@@ -1737,6 +1737,122 @@ var ElementorProFrontendConfig = {"ajaxurl":"https:\/\/ninaanddarek.com\/wp-admi
 				/* @v3-js:end */
 			</script>
 			<!-- / CAPTCHA by CAPTCHA 4WP plugin -->
+<style>
+/* Lightbox Styles */
+.custom-lightbox {
+    display: none;
+    position: fixed;
+    z-index: 999999;
+    padding: 50px;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.9);
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.custom-lightbox.show {
+    display: flex;
+    opacity: 1;
+}
+
+.custom-lightbox-img {
+    max-width: 90%;
+    max-height: 90vh;
+    object-fit: contain;
+    border-radius: 4px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+    transform: scale(0.95);
+    transition: transform 0.3s ease;
+}
+
+.custom-lightbox.show .custom-lightbox-img {
+    transform: scale(1);
+}
+
+.custom-lightbox-close {
+    position: absolute;
+    top: 20px;
+    right: 35px;
+    color: #fff;
+    font-size: 50px;
+    font-weight: normal;
+    cursor: pointer;
+    transition: color 0.3s ease;
+    line-height: 1;
+}
+
+.custom-lightbox-close:hover,
+.custom-lightbox-close:focus {
+    color: #bababa;
+    text-decoration: none;
+}
+</style>
+
+<div id="customLightbox" class="custom-lightbox">
+    <span class="custom-lightbox-close" onclick="closeLightbox(event)">&times;</span>
+    <img class="custom-lightbox-img" id="customLightboxImg">
+</div>
+
+<script>
+function openLightbox(imgSrc) {
+    const lightbox = document.getElementById('customLightbox');
+    const lightboxImg = document.getElementById('customLightboxImg');
+    
+    // Attempt to get the high-res version if it's scaled down
+    let highResSrc = imgSrc;
+    if (!imgSrc.includes('-scaled')) {
+        highResSrc = imgSrc.replace(/-\d+x\d+(?=\.[a-zA-Z]+$)/, '');
+    }
+    
+    lightboxImg.src = highResSrc;
+    lightbox.classList.add('show');
+}
+
+function closeLightbox(event) {
+    if (event) event.stopPropagation();
+    const lightbox = document.getElementById('customLightbox');
+    lightbox.classList.remove('show');
+}
+
+document.addEventListener('DOMContentLoaded', function() {
+    // Close lightbox if clicking outside the image
+    const lightbox = document.getElementById('customLightbox');
+    lightbox.addEventListener('click', function(e) {
+        if (e.target === lightbox) {
+            closeLightbox(e);
+        }
+    });
+
+    // Select images in the gallery grid. 
+    const galleryCells = document.querySelectorAll('.gallery-cell');
+    
+    galleryCells.forEach(cell => {
+        const innerDiv = cell.querySelector('div');
+        if (!innerDiv) return;
+
+        cell.style.cursor = 'pointer';
+        cell.addEventListener('click', function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            
+            // Extract URL from background-image
+            const bgImage = innerDiv.style.backgroundImage;
+            if (bgImage && bgImage !== 'none') {
+                // background-image: url('URL')
+                const urlMatch = bgImage.match(/url\(['"]?(.*?)['"]?\)/);
+                if (urlMatch && urlMatch[1]) {
+                    openLightbox(urlMatch[1]);
+                }
+            }
+        });
+    });
+});
+</script>
 </body>
 </html>
 
