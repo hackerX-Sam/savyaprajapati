@@ -2783,14 +2783,20 @@ header[data-elementor-type="header"] {
 </style>
 
 <section class="custom-hero-section" style="max-width: 1200px; margin: 280px auto 40px auto; position: relative; padding: 0 20px;">
-    <div class="custom-hero-slider" style="position: relative; width: 100%; aspect-ratio: 16/9; overflow: hidden; display: flex; align-items: center; justify-content: center; border-radius: 4px;">
-        <img id="hero-slider-img" src="https://ik.imagekit.io/logicsync/tr:w-2000/photo%202.JPG" style="width: 100%; height: 100%; object-fit: cover; object-position: center 20%; transition: opacity 0.3s ease-in-out;" alt="Hero Image">
+    <div class="custom-hero-slider" style="position: relative; width: 100%; aspect-ratio: 16/9; overflow: hidden; display: flex; align-items: center; justify-content: center; border-radius: 4px; background: #fff;">
+        <div id="left-frame" style="width: 0%; opacity: 0; align-self: stretch; overflow: hidden; background: transparent; transition: none;">
+            <img src="https://ik.imagekit.io/logicsync/IMG.112.jpg?updatedAt=1780925347803" style="width: 100%; height: 100%; object-fit: cover; object-position: center;" alt="Left Frame Photo">
+        </div>
+        <img id="hero-slider-img" src="https://ik.imagekit.io/logicsync/tr:w-2000/photo%202.JPG" style="width: 100%; height: 100%; object-fit: cover; object-position: center 20%; transition: none; align-self: stretch;" alt="Hero Image">
+        <div id="right-frame" style="width: 0%; opacity: 0; align-self: stretch; overflow: hidden; background: transparent; transition: none;">
+            <img src="https://ik.imagekit.io/logicsync/40f67b10-8e57-4a54-8b95-674457cad392.jpg?updatedAt=1780925326454" style="width: 100%; height: 100%; object-fit: cover; object-position: center;" alt="Right Frame Photo">
+        </div>
         
-        <div class="slider-arrow left-arrow" onclick="prevSlide()" style="position: absolute; left: 20px; top: 50%; transform: translateY(-50%); width: 45px; height: 45px; background: rgba(255,255,255,0.6); backdrop-filter: blur(5px); -webkit-backdrop-filter: blur(5px); color: #000; display: flex; align-items: center; justify-content: center; cursor: pointer; border-radius: 50%; transition: background 0.3s;">
+        <div class="slider-arrow left-arrow" onclick="prevSlide()" style="position: absolute; left: 20px; top: 50%; transform: translateY(-50%); width: 45px; height: 45px; background: rgba(255,255,255,0.6); backdrop-filter: blur(5px); -webkit-backdrop-filter: blur(5px); color: #000; display: flex; align-items: center; justify-content: center; cursor: pointer; border-radius: 50%; transition: background 0.3s; z-index: 10;">
             <svg viewBox="0 0 24 24" width="24" height="24" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg>
         </div>
         
-        <div class="slider-arrow right-arrow" onclick="nextSlide()" style="position: absolute; right: 20px; top: 50%; transform: translateY(-50%); width: 45px; height: 45px; background: rgba(255,255,255,0.6); backdrop-filter: blur(5px); -webkit-backdrop-filter: blur(5px); color: #000; display: flex; align-items: center; justify-content: center; cursor: pointer; border-radius: 50%; transition: background 0.3s;">
+        <div class="slider-arrow right-arrow" onclick="nextSlide()" style="position: absolute; right: 20px; top: 50%; transform: translateY(-50%); width: 45px; height: 45px; background: rgba(255,255,255,0.6); backdrop-filter: blur(5px); -webkit-backdrop-filter: blur(5px); color: #000; display: flex; align-items: center; justify-content: center; cursor: pointer; border-radius: 50%; transition: background 0.3s; z-index: 10;">
             <svg viewBox="0 0 24 24" width="24" height="24" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
         </div>
     </div>
@@ -2800,21 +2806,43 @@ header[data-elementor-type="header"] {
     const slides = [
         { src: "https://ik.imagekit.io/logicsync/tr:w-2000/photo%202.JPG", position: "center 20%" },
         { src: "https://ik.imagekit.io/logicsync/CEOL6373.jpg?updatedAt=1780925351324", position: "center 40%" },
-        { src: "https://ik.imagekit.io/logicsync/IMG.112.jpg?updatedAt=1780925347803", position: "center 0%" },
-        { src: "https://ik.imagekit.io/logicsync/0eba3533-9e9f-4609-b167-5d137b160e3e.jpg", position: "center center" },
-        { src: "https://ik.imagekit.io/logicsync/ce247119-0ef3-483f-90f3-a0275ec101d1.jpg?updatedAt=1780925325760", position: "center center" },
-        { src: "https://ik.imagekit.io/logicsync/1.jpg?updatedAt=1781942165881", position: "center center" }
+        { src: "https://ik.imagekit.io/logicsync/IMG.0010.jpg?updatedAt=1780925332753", position: "center 0%" },
+        { src: "https://ik.imagekit.io/logicsync/1.jpg?updatedAt=1781942165881", position: "center center" },
+        { src: "https://ik.imagekit.io/logicsync/IMG_2878.JPG?updatedAt=1781942180969", position: "center center" }
     ];
     let currentIndex = 0;
     const heroImg = document.getElementById('hero-slider-img');
+    const leftFrame = document.getElementById('left-frame');
+    const rightFrame = document.getElementById('right-frame');
+    
+    // Preload images to eliminate lag
+    slides.forEach(slide => {
+        const img = new Image();
+        img.src = slide.src;
+    });
 
     function updateSlide() {
-        heroImg.style.opacity = '0.6';
-        setTimeout(() => {
-            heroImg.src = slides[currentIndex].src;
-            heroImg.style.objectPosition = slides[currentIndex].position;
-            heroImg.style.opacity = '1';
-        }, 150);
+        const slide = slides[currentIndex];
+        heroImg.src = slide.src;
+        heroImg.style.objectPosition = slide.position;
+        
+        if (currentIndex === 2) {
+            // 3-part layout for the 3rd slide
+            heroImg.style.width = '33.33%';
+            heroImg.style.objectFit = 'cover';
+            leftFrame.style.width = '33.33%';
+            rightFrame.style.width = '33.33%';
+            leftFrame.style.opacity = '1';
+            rightFrame.style.opacity = '1';
+        } else {
+            // Default full-cover layout for other slides
+            heroImg.style.width = '100%';
+            heroImg.style.objectFit = 'cover';
+            leftFrame.style.width = '0%';
+            rightFrame.style.width = '0%';
+            leftFrame.style.opacity = '0';
+            rightFrame.style.opacity = '0';
+        }
     }
 
     function prevSlide() {
@@ -2827,8 +2855,8 @@ header[data-elementor-type="header"] {
         updateSlide();
     }
     
-    // Auto-advance every 5 seconds
-    setInterval(nextSlide, 5000);
+    // Auto-advance every 4 seconds
+    setInterval(nextSlide, 4000);
 </script>
 
 
@@ -3527,7 +3555,7 @@ header[data-elementor-type="header"] {
 											data-widget_type="image.default">
 											<div class="elementor-widget-container">
 												<img decoding="async" width="768" height="768"
-													src="https://ik.imagekit.io/logicsync/ChatGPT%20Image%20Jun%206,%202026,%2012_14_45%20AM.png"
+													src="https://ik.imagekit.io/logicsync/WhatsApp%20Image%202026-06-10%20at%209.53.00%20AM.jpeg?updatedAt=1781066024847"
 													class="attachment-medium_large size-medium_large wp-image-4012"
 													alt="Sabhya Prajapati" /> </a>
 											</div>
@@ -3629,7 +3657,7 @@ header[data-elementor-type="header"] {
 							data-settings="{&quot;row_gap&quot;:{&quot;unit&quot;:&quot;px&quot;,&quot;size&quot;:5,&quot;sizes&quot;:[]},&quot;columns&quot;:&quot;3&quot;,&quot;columns_tablet&quot;:&quot;2&quot;,&quot;columns_mobile&quot;:&quot;1&quot;,&quot;item_ratio&quot;:{&quot;unit&quot;:&quot;px&quot;,&quot;size&quot;:0.66,&quot;sizes&quot;:[]},&quot;item_gap&quot;:{&quot;unit&quot;:&quot;px&quot;,&quot;size&quot;:&quot;&quot;,&quot;sizes&quot;:[]}}"
 							data-widget_type="portfolio.default">
 							<div class="elementor-widget-container">
-								<div class="elementor-portfolio elementor-grid elementor-posts-container" role="list">
+								<div id="instafeed" class="elementor-portfolio elementor-grid elementor-posts-container" role="list">
 									<article
 										class="elementor-portfolio-item elementor-post  post-5411 post type-post status-publish format-standard has-post-thumbnail hentry category-stories"
 										role="listitem">
@@ -3641,7 +3669,6 @@ header[data-elementor-type="header"] {
 													alt="Game of Thrones Inspired Gothic Wedding in a Polish Castle"
 													style="width: 100% !important; height: 100% !important; top: 0 !important; left: 0 !important; transform: none !important; object-fit: cover; object-position: center 10%;">
 											</div>
-
 										</a>
 									</article>
 									<article
@@ -3655,7 +3682,6 @@ header[data-elementor-type="header"] {
 													alt="Phantom of the Opera Inspired Wedding"
 													style="width: 100% !important; height: 100% !important; top: 0 !important; left: 0 !important; transform: scale(1.0) !important; object-fit: cover; object-position: center 50%;">
 											</div>
-
 										</a>
 									</article>
 									<article
@@ -3668,7 +3694,6 @@ header[data-elementor-type="header"] {
 													class="attachment-medium_large size-medium_large"
 													alt="Dark Academia Aesthetic: Photo shoot in the Castle">
 											</div>
-
 										</a>
 									</article>
 									<article
@@ -3681,7 +3706,6 @@ header[data-elementor-type="header"] {
 													class="attachment-medium_large size-medium_large"
 													alt="Scottish Elopement: Romance in the Heart of the Highlands">
 											</div>
-
 										</a>
 									</article>
 									<article
@@ -3694,7 +3718,6 @@ header[data-elementor-type="header"] {
 													class="attachment-medium_large size-medium_large"
 													alt="Industrial Wedding at Ceglarnia Jarosławki">
 											</div>
-
 										</a>
 									</article>
 									<article
@@ -3708,10 +3731,24 @@ header[data-elementor-type="header"] {
 													alt="Jackie & Gabs Isle of Skye Elopement"
 													style="width: 100% !important; height: 100% !important; top: 0 !important; left: 0 !important; transform: none !important; object-fit: cover; object-position: center 20%;">
 											</div>
-
 										</a>
 									</article>
 								</div>
+								<script src="https://cdn.jsdelivr.net/gh/stevenschobert/instafeed.js@2.0.0rc1/src/instafeed.min.js"></script>
+								<script>
+									document.addEventListener("DOMContentLoaded", function() {
+										var token = 'YOUR_INSTAGRAM_ACCESS_TOKEN_HERE';
+										if (token && token !== 'YOUR_INSTAGRAM_ACCESS_TOKEN_HERE') {
+											document.getElementById('instafeed').innerHTML = '';
+											var feed = new Instafeed({
+												accessToken: token,
+												limit: 6,
+												template: '<article class="elementor-portfolio-item elementor-post post type-post status-publish format-standard has-post-thumbnail hentry category-stories" role="listitem"><a class="elementor-post__thumbnail__link" href="{{link}}" target="_blank"><div class="elementor-portfolio-item__img elementor-post__thumbnail"><img src="{{image}}" class="attachment-medium_large size-medium_large" alt="{{caption}}" style="width: 100% !important; height: 100% !important; top: 0 !important; left: 0 !important; transform: none !important; object-fit: cover; object-position: center;"></div></a></article>'
+											});
+											feed.run();
+										}
+									});
+								</script>
 							</div>
 						</div>
 					</div>
@@ -4504,7 +4541,7 @@ header[data-elementor-type="header"] {
 			const images = [
 				{
 					src: "https://ik.imagekit.io/logicsync/tr:w-2000/photo%202.JPG",
-					position: "center 0%"
+					position: "center 20%"
 				},
 				{
 					src: "https://ik.imagekit.io/logicsync/CEOL6373.jpg?updatedAt=1780925351324",
