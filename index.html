@@ -796,6 +796,49 @@ header[data-elementor-type="header"] {
 </style>
 
 <style>
+/* Decrease opacity of leaf background behind "THE ONES BEHIND THE CAMERA" */
+.elementor-10 .elementor-element.elementor-element-f426337 > .elementor-widget-wrap {
+    background-image: none !important;
+    position: relative;
+    z-index: 1;
+}
+.elementor-10 .elementor-element.elementor-element-f426337 > .elementor-widget-wrap::before {
+    content: "";
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background-image: url("wp-content/uploads/2023/04/flower-icon-wedding.png");
+    background-position: center 60%;
+    background-repeat: no-repeat;
+    background-size: auto;
+    opacity: 0.6;
+    z-index: -1;
+}
+@media(max-width:767px) {
+    .elementor-10 .elementor-element.elementor-element-f426337 > .elementor-widget-wrap::before {
+        background-size: 52px auto;
+    }
+}
+
+/* Decrease opacity of leaf background behind "OUR RECENT STORIES" */
+.elementor-10 .elementor-element.elementor-element-5611492 > .elementor-widget-wrap {
+    background-image: none !important;
+    position: relative;
+    z-index: 1;
+}
+.elementor-10 .elementor-element.elementor-element-5611492 > .elementor-widget-wrap::before {
+    content: "";
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background-image: url("wp-content/uploads/2023/04/floral-icon-elopement-1.png");
+    background-position: center 60%;
+    background-repeat: no-repeat;
+    background-size: auto;
+    opacity: 0.6;
+    z-index: -1;
+}
+</style>
+
+<style>
 /* Globally pull the navigation bar up closer to the logo */
 .elementor-element-fdcd67e {
     margin-top: -60px !important;
