@@ -7,6 +7,6 @@ User-agent: *
 Disallow: /wp-json/
 Disallow: /?rest_route=
 
-Sitemap: https://ninaanddarek.com/sitemap_index.xml
+Sitemap: https://www.sabhyaprajapati.com/sitemap.xml
 # ---------------------------
 # END YOAST BLOCK
