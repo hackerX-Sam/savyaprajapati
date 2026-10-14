@@ -1,78 +1,112 @@
 {
-  "headers": [
-    {
-      "source": "/(.*)\\.css@(.*)",
-      "headers": [
+    "headers": [
         {
-          "key": "Content-Type",
-          "value": "text/css"
-        }
-      ]
-    },
-    {
-      "source": "/(.*)\\.css&(.*)",
-      "headers": [
+            "source": "/(.*)\\.css@(.*)",
+            "headers": [
+                {
+                    "key": "Content-Type",
+                    "value": "text/css"
+                }
+            ]
+        },
         {
-          "key": "Content-Type",
-          "value": "text/css"
-        }
-      ]
-    },
-    {
-      "source": "/(.*)\\.js@(.*)",
-      "headers": [
+            "source": "/(.*)\\.css&(.*)",
+            "headers": [
+                {
+                    "key": "Content-Type",
+                    "value": "text/css"
+                }
+            ]
+        },
         {
-          "key": "Content-Type",
-          "value": "application/javascript"
-        }
-      ]
-    },
-    {
-      "source": "/(.*)\\.js&(.*)",
-      "headers": [
+            "source": "/(.*)\\.js@(.*)",
+            "headers": [
+                {
+                    "key": "Content-Type",
+                    "value": "application/javascript"
+                }
+            ]
+        },
         {
-          "key": "Content-Type",
-          "value": "application/javascript"
-        }
-      ]
-    },
-    {
-      "source": "/(about|contact|stories|team|gallery)\\.1",
-      "headers": [
+            "source": "/(.*)\\.js&(.*)",
+            "headers": [
+                {
+                    "key": "Content-Type",
+                    "value": "application/javascript"
+                }
+            ]
+        },
         {
-          "key": "Content-Type",
-          "value": "text/html"
-        }
-      ]
-    },
-    {
-      "source": "/nostalgia-workshop",
-      "headers": [
+            "source": "/(about|contact|stories|team|gallery)\\.1",
+            "headers": [
+                {
+                    "key": "Content-Type",
+                    "value": "text/html"
+                }
+            ]
+        },
         {
-          "key": "Content-Type",
-          "value": "text/html"
-        }
-      ]
-    },
-    {
-      "source": "/gallery/(.*)",
-      "headers": [
+            "source": "/nostalgia-workshop",
+            "headers": [
+                {
+                    "key": "Content-Type",
+                    "value": "text/html"
+                }
+            ]
+        },
         {
-          "key": "Content-Type",
-          "value": "text/html"
-        }
-      ]
-    },
-    {
-      "source": "/gallery/",
-      "headers": [
+            "source": "/gallery/(.*)",
+            "headers": [
+                {
+                    "key": "Content-Type",
+                    "value": "text/html"
+                }
+            ]
+        },
         {
-          "key": "Content-Type",
-          "value": "text/html"
+            "source": "/gallery/",
+            "headers": [
+                {
+                    "key": "Content-Type",
+                    "value": "text/html"
+                }
+            ]
         }
-      ]
-    }
-  ],
-  "trailingSlash": true,
-  "cleanUrls": true
+    ],
+    "trailingSlash": true,
+    "cleanUrls": true,
+    "rewrites": [
+        {
+            "destination": "/about/index.html",
+            "source": "/about"
+        },
+        {
+            "destination": "/about/index.html",
+            "source": "/about/"
+        },
+        {
+            "destination": "/about/index.html",
+            "source": "/about.1"
+        },
+        {
+            "destination": "/gallery/index.html",
+            "source": "/gallery"
+        },
+        {
+            "destination": "/gallery/index.html",
+            "source": "/gallery/"
+        },
+        {
+            "destination": "/contact/index.html",
+            "source": "/contact"
+        },
+        {
+            "destination": "/contact/index.html",
+            "source": "/contact/"
+        },
+        {
+            "destination": "/contact/index.html",
+            "source": "/contact.1"
+        }
+    ]
 }
